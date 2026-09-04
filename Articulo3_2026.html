@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MosaicoAgroVeterinario · Grupo 3D · Artículo 3 · Procesos digestivos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul: #22D3EE;
+    --azul-oscuro: #0B1420;
+    --cian: #A3E635;
+    --azul-claro: #16283D;
+    --dorado: #FBBF24;
+    --verde: #34D399;
+    --verde-claro: #123024;
+    --rojo: #F87171;
+    --naranja: #FB923C;
+    --papel: #0B1420;
+    --tinta: #E7EEF5;
+    --muted: #8AA0B8;
+    --panel: #121D2E;
+    --linea: #223247;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--papel);
+    color:var(--tinta);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.65;
+  }
+
+  /* Sidebar de navegación (dashboard) */
+  .sidebar{
+    position:fixed; top:0; left:0; width:260px; height:100vh; overflow-y:auto;
+    background:var(--panel); border-right:1px solid var(--linea);
+    padding:26px 20px; display:flex; flex-direction:column; gap:24px; z-index:10;
+  }
+  .sidebar-logos{display:flex; gap:8px;}
+  .sidebar-logos .logo-badge{background:#fff; border-radius:6px; padding:4px 8px; height:26px; display:flex; align-items:center;}
+  .sidebar-logos .logo-badge img{height:100%; width:auto; display:block;}
+  .sidebar-title{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:16px; color:#fff; margin-top:2px;}
+  .sidebar-title .agro{color:var(--dorado); font-style:normal;}
+  .sidebar-tag{font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:1.5px; color:var(--azul); text-transform:uppercase; margin-top:6px;}
+  .sidebar-nav{display:flex; flex-direction:column; gap:2px;}
+  .sidebar-nav a{
+    color:var(--muted); text-decoration:none; font-size:12.5px; padding:9px 10px; border-radius:6px;
+    border-left:2px solid transparent;
+  }
+  .sidebar-nav a:hover{background:rgba(34,211,238,0.08); color:var(--tinta); border-left-color:var(--azul);}
+  .sidebar-nav a.back{color:var(--azul); font-weight:600; margin-bottom:10px; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.5px;}
+  .sidebar-footer{margin-top:auto; font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--muted); border-top:1px solid var(--linea); padding-top:14px;}
+
+  .page{max-width:860px; margin:0 0 0 260px; background:var(--papel);}
+  .print-btn-wrap{margin-left:260px;}
+  .cover-top-bar{display:none;}
+
+  /* Hero: tarjeta de cabecera tipo dashboard */
+  .cover-hero{
+    position:relative;
+    background:var(--panel);
+    background-image:none;
+    border:1px solid var(--linea);
+    border-radius:14px;
+    display:grid;
+    grid-template-columns:1fr;
+    margin:30px 32px 0;
+    padding:32px 34px 30px;
+    color:var(--tinta);
+  }
+  .hero-illustration{display:none;}
+  .hero-text .revista-name{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:21px;
+    letter-spacing:0.2px;
+  }
+  .hero-text .revista-name .agro{color:var(--dorado); font-style:normal;}
+  .hero-text .tagline{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-top:6px;
+  }
+  .hero-divider{
+    width:40px; height:3px; background:var(--azul);
+    margin:18px 0 14px;
+    border-radius:2px;
+  }
+  .hero-text .art-label{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    background:rgba(34,211,238,0.08);
+    border:1px solid var(--azul);
+    color:var(--azul);
+    border-radius:5px;
+    padding:4px 12px;
+    margin-bottom:16px;
+  }
+  .hero-text h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:28px;
+    line-height:1.28;
+    color:#fff;
+  }
+  .hero-text .subtitle{
+    margin-top:14px;
+    font-weight:300;
+    font-size:15px;
+    max-width:560px;
+    color:var(--muted);
+  }
+
+  /* Banda de autora */
+  .author-band{
+    background:transparent;
+    border-bottom:1px solid var(--linea);
+    color:var(--tinta);
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:18px 32px;
+    margin:0 32px;
+    flex-wrap:wrap;
+  }
+  .avatar{
+    width:38px; height:38px; border-radius:8px;
+    background:var(--azul-claro); border:1px solid var(--linea);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:13px;
+    color:var(--azul); flex-shrink:0;
+  }
+  .author-info .name{font-weight:600; font-size:13.5px; color:var(--tinta);}
+  .author-info .affiliation{font-size:11px; color:var(--muted);}
+  .chips{display:flex; gap:6px; margin-left:auto; flex-wrap:wrap;}
+  .chip{
+    border-radius:4px; padding:4px 10px; font-size:10px;
+    font-family:'IBM Plex Mono', monospace; text-transform:uppercase;
+    border:1px solid var(--linea); background:var(--panel); color:var(--muted);
+  }
+  .chip.gold{border-color:var(--dorado); color:var(--dorado); font-weight:600;}
+
+  /* Lead */
+  .lead{
+    background:var(--panel);
+    border:1px solid var(--linea);
+    border-left:3px solid var(--azul);
+    margin:26px 32px 0;
+    padding:28px 30px;
+    border-radius:10px;
+  }
+  .lead p{
+    font-weight:300; font-size:15px; color:var(--tinta);
+  }
+  .lead .dropcap{
+    float:left;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:52px;
+    line-height:0.8;
+    font-weight:700;
+    color:var(--azul);
+    padding-right:10px;
+    margin-top:4px;
+  }
+  .lead-stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin-top:24px;
+  }
+  .stat-card{
+    background:var(--azul-oscuro);
+    border:1px solid var(--linea);
+    border-top:2px solid var(--azul);
+    border-radius:8px;
+    padding:14px 14px;
+    text-align:center;
+  }
+  .stat-card .num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:25px;
+    font-weight:600;
+    color:var(--azul);
+  }
+  .stat-card.green .num{color:var(--verde);}
+  .stat-card.red .num{color:var(--rojo);}
+  .stat-card .label{font-size:11px; color:var(--muted); margin-top:6px;}
+
+  /* Alerta */
+  .alert-box{
+    margin:22px 32px 0;
+    background:rgba(248,113,113,0.06);
+    border:1px solid var(--rojo);
+    border-radius:10px;
+    padding:18px 20px;
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+  }
+  .alert-box .icon{
+    width:24px; height:24px; border-radius:6px;
+    background:var(--rojo); color:var(--azul-oscuro);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:14px;
+    flex-shrink:0;
+  }
+  .alert-box .alert-label{
+    color:var(--rojo);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+    margin-bottom:5px;
+  }
+  .alert-box p{font-size:13.5px; color:var(--tinta);}
+
+  /* Secciones numeradas */
+  section.tema{
+    padding:32px 32px 6px;
+  }
+  .tema-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:14px;
+  }
+  .num-circle{
+    width:30px; height:30px; border-radius:8px;
+    background:var(--azul-claro); border:1px solid var(--azul); color:var(--azul);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px; font-weight:700; flex-shrink:0;
+  }
+  .tema-header h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:19px;
+    font-weight:600;
+    color:#fff;
+    border-bottom:none;
+    padding-bottom:0;
+    display:inline-block;
+  }
+  .tema p{
+    font-size:14px;
+    color:var(--muted);
+    margin-bottom:12px;
+  }
+  .tema p strong{color:var(--tinta);}
+
+  /* Tarjetas de mecanismos */
+  .cards-3col{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    padding:8px 32px 32px;
+  }
+  .concept-card{
+    border-radius:10px;
+    overflow:hidden;
+    border:1px solid var(--linea);
+    background:var(--panel);
+    box-shadow:none;
+    display:flex;
+    flex-direction:column;
+  }
+  .concept-card .card-header{
+    padding:14px;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    border-bottom:1px solid var(--linea);
+  }
+  .concept-card .card-header .emoji{font-size:18px;}
+  .concept-card .card-header h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:14px;
+    font-weight:600;
+  }
+  .concept-card.blue .card-header{border-bottom:2px solid var(--azul);}
+  .concept-card.orange .card-header{border-bottom:2px solid var(--naranja);}
+  .concept-card.green .card-header{border-bottom:2px solid var(--verde);}
+  .concept-card .card-body{
+    background:transparent;
+    padding:14px;
+    font-size:12.5px;
+    color:var(--muted);
+    flex:1;
+  }
+  .card-tag{
+    display:inline-block;
+    margin:0 14px 14px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:9.5px;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    font-weight:600;
+    padding:3px 9px;
+    border-radius:10px;
+  }
+  .concept-card.blue .card-tag{background:var(--azul-claro); color:var(--azul);}
+  .concept-card.orange .card-tag{background:rgba(251,146,60,0.12); color:var(--naranja);}
+  .concept-card.green .card-tag{background:var(--verde-claro); color:var(--verde);}
+
+  /* Analogía */
+  .analogy-box{
+    margin:6px 32px 32px;
+    background:linear-gradient(135deg, var(--panel), var(--azul-claro));
+    border:1px solid var(--linea);
+    border-radius:12px;
+    padding:26px 28px;
+    color:var(--tinta);
+  }
+  .analogy-label{
+    color:var(--dorado);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin-bottom:9px;
+  }
+  .analogy-box h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:18px;
+    margin-bottom:10px;
+    color:#fff;
+  }
+  .analogy-box p{
+    color:var(--muted);
+    font-size:13.5px;
+    font-weight:300;
+  }
+  .analogy-box p b{color:var(--dorado); font-weight:700;}
+
+  /* Balance */
+  .balance-card{
+    margin:6px 32px 32px;
+    background:var(--panel);
+    border:1px solid var(--linea);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .balance-row{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:14px 18px;
+    border-left:4px solid transparent;
+  }
+  .balance-row.bad{border-left-color:var(--rojo);}
+  .balance-row.good{border-left-color:var(--verde);}
+  .balance-row.warn{border-left-color:var(--naranja);}
+  .balance-row .b-icon{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .balance-row.bad .b-icon{background:var(--rojo);}
+  .balance-row.good .b-icon{background:var(--verde);}
+  .balance-row.warn .b-icon{background:var(--naranja);}
+  .balance-row .b-title{font-weight:600; font-size:13px; color:var(--tinta);}
+  .balance-row .b-desc{font-size:11.5px; color:var(--muted);}
+  .balance-arrow{
+    text-align:center;
+    color:var(--azul);
+    font-size:16px;
+    padding:1px 0;
+  }
+
+  /* Glosario */
+  .glossary{
+    padding:4px 32px 32px;
+  }
+  .glossary h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:18px;
+    margin-bottom:14px;
+    color:#fff;
+  }
+  .glossary-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+  .gloss-item{
+    border-radius:8px;
+    padding:12px 16px;
+    background:var(--panel);
+    border:1px solid var(--linea);
+    border-left:3px solid var(--azul);
+  }
+  .gloss-item:nth-child(even){border-left-color:var(--cian);}
+  .gloss-item .term{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:13.5px;
+    color:#fff;
+    margin-bottom:3px;
+  }
+  .gloss-item .def{font-size:11.5px; color:var(--muted);}
+
+  /* Diagrama ciclo */
+  .cycle-section{padding:4px 32px 36px;}
+  .cycle-section h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:18px;
+    margin-bottom:4px;
+    color:#fff;
+  }
+  .cycle-section .sub{font-size:12px; color:var(--muted); margin-bottom:16px;}
+  .cycle-wrap{display:flex; justify-content:center;}
+  .cycle-wrap svg{filter:invert(0.93) hue-rotate(165deg) saturate(1.5) brightness(1.05);}
+
+  /* Referencias bibliográficas */
+  .references{padding:4px 32px 36px;}
+  .references-header{
+    display:flex; align-items:center; gap:12px; margin-bottom:14px;
+  }
+  .references-header h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:18px;
+    color:#fff;
+  }
+  .ref-list{list-style:none;}
+  .ref-item{
+    background:var(--panel);
+    border:1px solid var(--linea);
+    border-left:3px solid var(--azul);
+    border-radius:8px;
+    padding:12px 16px;
+    margin-bottom:9px;
+    font-size:12.5px;
+    color:var(--tinta);
+  }
+  .ref-item a{color:var(--azul); word-break:break-all;}
+
+  /* Footer */
+  footer{
+    background:var(--panel);
+    border-top:1px solid var(--linea);
+    color:var(--tinta);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:26px 32px;
+    margin-left:0;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  footer .footer-name{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    color:#fff;
+  }
+  footer .footer-name .agro{color:var(--dorado); font-style:normal;}
+  footer .footer-meta{font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--muted); margin-top:5px;}
+  footer .footer-right{
+    display:flex; align-items:center; gap:12px; text-align:right;
+  }
+  footer .footer-right .uat{font-size:11px; color:var(--muted);}
+  .footer-logos{display:flex; gap:8px; align-items:center;}
+  .footer-logos .logo-badge{background:#fff; border-radius:6px; height:26px; padding:4px 9px; display:flex; align-items:center;}
+  .footer-logos .logo-badge img{height:100%; width:auto; display:block;}
+  .art-circle{
+    width:34px; height:34px; border-radius:8px;
+    background:var(--azul-claro); border:1px solid var(--azul); color:var(--azul);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:700; font-size:13px;
+  }
+
+  .print-btn-wrap{
+    text-align:center;
+    padding:26px 20px 40px;
+    background:var(--papel);
+  }
+  .print-btn{
+    background:var(--azul);
+    color:var(--azul-oscuro);
+    border:none;
+    padding:11px 26px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+    font-family:'IBM Plex Sans', sans-serif;
+  }
+  .print-btn:hover{background:var(--cian);}
+  .print-hint{font-size:11px; color:var(--muted); margin-top:10px;}
+
+  @media print{
+    .print-btn-wrap{display:none;}
+    .sidebar{display:none;}
+    .page{margin-left:0;}
+    body{background:#fff;}
+  }
+
+  @media (max-width:900px){
+    .sidebar{
+      position:static; width:100%; height:auto;
+      flex-direction:row; flex-wrap:wrap; align-items:center;
+      padding:14px 18px; gap:14px;
+    }
+    .sidebar-nav, .sidebar-footer{display:none;}
+    .page{margin-left:0; max-width:100%;}
+    .print-btn-wrap{margin-left:0;}
+    .cover-hero, .author-band, .lead, .alert-box, section.tema, .cards-3col, .analogy-box, .balance-card, .glossary, .cycle-section, .references{margin-left:16px; margin-right:16px;}
+  }
+  @media (max-width:720px){
+    .lead-stats, .cards-3col, .glossary-grid{grid-template-columns:1fr;}
+    footer{flex-direction:column; text-align:center;}
+    footer .footer-right{flex-direction:column; text-align:center;}
+    .footer-logos{justify-content:center;}
+    .chips{margin-left:0; width:100%; justify-content:center;}
+  }
+
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div>
+    <div class="sidebar-logos">
+      <div class="logo-badge"><img src="logo-uat.png" alt="Universidad Autónoma de Tamaulipas"></div>
+      <div class="logo-badge"><img src="logo-fmvz-icono.png" alt="FMVZ"></div>
+    </div>
+    <div class="sidebar-title">Mosaico<span class="agro">Agro</span>Veterinario</div>
+    <div class="sidebar-tag">Grupo 3D · 2026-3</div>
+  </div>
+  <nav class="sidebar-nav">
+    <a class="back" href="index.html">&larr; ÍNDICE</a>
+    <a href="#inicio">Inicio</a>
+    <a href="#tema-1">Tema 01</a>
+    <a href="#tema-2">Tema 02</a>
+    <a href="#tema-3">Tema 03</a>
+    <a href="#glosario">Glosario</a>
+    <a href="#linea-tiempo">Línea evolutiva</a>
+    <a href="#referencias">Referencias</a>
+  </nav>
+  <div class="sidebar-footer">ART. 3 · UNIDAD 3</div>
+</aside>
+<div class="page" id="inicio">
+
+  <!-- 4.1 Barra superior -->
+  <div class="cover-top-bar">
+    <span>FMVZ · Universidad Autónoma de Tamaulipas</span>
+    <span><span class="gold">Grupo 3D</span> · Art. 3 · 2026-3</span>
+  </div>
+
+  <!-- 4.2 Hero -->
+  <div class="cover-hero">
+    <div class="hero-text">
+      <div class="revista-name">Mosaico<span class="agro">Agro</span>Veterinario</div>
+      <div class="tagline">Divulgación científica · FMVZ-UAT</div>
+      <div class="hero-divider"></div>
+      <span class="art-label">Artículo 3 · Unidad 3</span>
+      <h1>Procesos digestivos</h1>
+      <p class="subtitle">Cómo el organismo convierte carbohidratos, lípidos y proteínas en energía y tejido, con una ruta distinta para rumiantes y no rumiantes.</p>
+    </div>
+    <div class="hero-illustration">
+      <svg viewBox="0 0 300 300" width="280" height="280" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="150" cy="150" r="110" fill="rgba(255,255,255,0.08)"/>
+        <circle cx="150" cy="150" r="80" fill="rgba(255,255,255,0.10)"/>
+        <circle cx="150" cy="150" r="46" fill="#F5A623" opacity="0.9"/>
+        <circle cx="150" cy="150" r="26" fill="#0057A8"/>
+        <g transform="translate(52,50)">
+          <circle cx="0" cy="0" r="20" fill="#2E8B3A"/>
+          <text x="0" y="5" font-size="10.5" font-family="Source Sans 3, sans-serif" font-weight="700" fill="#fff" text-anchor="middle">CHO</text>
+        </g>
+        <g transform="translate(248,60)">
+          <circle cx="0" cy="0" r="20" fill="#0057A8"/>
+          <text x="0" y="5" font-size="10.5" font-family="Source Sans 3, sans-serif" font-weight="700" fill="#fff" text-anchor="middle">Lípid.</text>
+        </g>
+        <g transform="translate(45,235)">
+          <circle cx="0" cy="0" r="20" fill="#E67E22"/>
+          <text x="0" y="5" font-size="10.5" font-family="Source Sans 3, sans-serif" font-weight="700" fill="#fff" text-anchor="middle">Prot.</text>
+        </g>
+        <g transform="translate(250,235)">
+          <circle cx="0" cy="0" r="20" fill="#009FE3"/>
+          <text x="0" y="5" font-size="10.5" font-family="Source Sans 3, sans-serif" font-weight="700" fill="#fff" text-anchor="middle">AGV</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- 4.3 Banda de autora -->
+  <div class="author-band">
+    <div class="avatar">LP</div>
+    <div class="author-info">
+      <div class="name">Dra. Luz Yosahandy Peña Avelino</div>
+      <div class="affiliation">FMVZ · Universidad Autónoma de Tamaulipas</div>
+    </div>
+    <div class="chips">
+      <span class="chip gold">Grupo 3D</span>
+      <span class="chip">Nutrición Animal</span>
+      <span class="chip">2026-3</span>
+    </div>
+  </div>
+
+  <!-- 4.4 Lead -->
+  <div class="lead">
+    <p><span class="dropcap">L</span>os tres macronutrientes de la dieta, carbohidratos, lípidos y proteínas, siguen rutas de digestión distintas según el animal sea rumiante o no rumiante. En los no rumiantes, enzimas como la amilasa, la lipasa y la pepsina fraccionan el alimento directamente en el estómago y el intestino delgado. En los rumiantes, el proceso empieza antes: en el rumen, una población de bacterias, protozoarios y hongos fermenta el alimento y produce ácidos grasos volátiles que se convierten en la principal fuente de energía del animal, antes de que el resto del alimento llegue al abomaso y al intestino.</p>
+    <div class="lead-stats">
+      <div class="stat-card">
+        <div class="num">85%</div>
+        <div class="label">De la energía del rumiante proviene de los AGV producidos en el rumen</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">10h</div>
+        <div class="label">Duración del tema en el programa</div>
+      </div>
+      <div class="stat-card green">
+        <div class="num">3</div>
+        <div class="label">Ácidos grasos volátiles principales: acético, propiónico, butírico</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.5 Alerta -->
+  <div class="alert-box">
+    <div class="icon">!</div>
+    <div>
+      <div class="alert-label">Dato crítico para la práctica profesional</div>
+      <p>Un atracón de concentrados de fácil fermentación puede disparar la producción de ácido láctico en el rumen y hacer caer el pH bruscamente. Esta acidosis láctica no solo daña la microbiota ruminal: el ácido pasa a la sangre y se vuelve sistémico, con riesgo de laminitis y cojeras. Ajustar la proporción de forraje y concentrado es, literalmente, una decisión de salud del hato.</p>
+    </div>
+  </div>
+
+  <!-- 4.6 Sección 1 -->
+  <section class="tema" id="tema-1">
+    <div class="tema-header">
+      <div class="num-circle">1</div>
+      <h2>Carbohidratos: dos rutas según el tipo de estómago</h2>
+    </div>
+    <p>En los animales no rumiantes, el almidón se descompone en la luz intestinal en glucosa, maltosa y oligosacáridos, que se absorben con ayuda de enzimas presentes en el borde de las microvellosidades. La glucosa resultante viaja por la sangre portal hasta el hígado y se mantiene dentro de un rango estrecho, entre 70 y 100 mg por cada 100 ml en monogástricos.</p>
+    <p>Los rumiantes, en cambio, apenas absorben glucosa del intestino. Su adaptación digestiva les permite aprovechar la celulosa y otros carbohidratos estructurales de la pared vegetal gracias a una relación simbiótica con los microorganismos del rumen. El producto final de esa fermentación no es glucosa, sino ácidos grasos volátiles de cadena corta, principalmente acético, propiónico y butírico, que se absorben directamente en la pared ruminal.</p>
+    <p>La proporción entre forraje y concentrado en la dieta cambia el resultado de esta fermentación: más concentrado favorece el ácido propiónico, lo que aumenta la producción de leche pero reduce su contenido de grasa; más forraje favorece el ácido acético, con el efecto contrario.</p>
+  </section>
+
+  <!-- 4.7 Tarjetas de conceptos -->
+  <div class="cards-3col">
+    <div class="concept-card blue">
+      <div class="card-header"><span class="emoji">🌾</span><h3>Carbohidratos fibrosos</h3></div>
+      <div class="card-body">Celulosa y hemicelulosa fermentan lentamente en el rumen. Estimulan la rumia y el flujo de saliva, lo que mantiene el pH ruminal cerca de la neutralidad.</div>
+      <span class="card-tag">Proceso fisiológico</span>
+    </div>
+    <div class="concept-card orange">
+      <div class="card-header"><span class="emoji">🍬</span><h3>Carbohidratos no fibrosos</h3></div>
+      <div class="card-body">Almidones y azúcares fermentan rápido y aportan más energía, pero en exceso pueden inhibir la fermentación de la fibra y alterar la digestión.</div>
+      <span class="card-tag">Riesgo de manejo</span>
+    </div>
+    <div class="concept-card green">
+      <div class="card-header"><span class="emoji">🦠</span><h3>Proteína microbiana</h3></div>
+      <div class="card-body">Los microorganismos del rumen mueren y pasan al abomaso, donde su proteína se digiere igual que cualquier otro alimento: una fuente valiosa de aminoácidos para el rumiante.</div>
+      <span class="card-tag">Ciclo simbiótico</span>
+    </div>
+  </div>
+
+  <!-- 4.6 Sección 2 -->
+  <section class="tema" id="tema-2">
+    <div class="tema-header">
+      <div class="num-circle">2</div>
+      <h2>Lípidos y proteínas: transformación ruminal y absorción</h2>
+    </div>
+    <p>En los no rumiantes, la lipasa secretada con apoyo de la bilis descompone los lípidos en ácidos grasos y glicerol, que se absorben en el intestino delgado y se resintetizan en triglicéridos para viajar por la sangre. En los rumiantes, hasta el 90% del metabolismo de los lípidos ocurre en el propio rumen, generando ácidos grasos volátiles; solo el 10% restante se procesa en el intestino delgado por la acción directa de la lipasa y la bilis.</p>
+    <p>Las proteínas siguen una lógica parecida. En no rumiantes, enzimas como la pepsina fraccionan la proteína bruta en péptidos y aminoácidos que se absorben en el intestino delgado y se emplean para sintetizar tejido. En rumiantes, buena parte de la proteína de la dieta primero alimenta a los microorganismos del rumen; lo que estos no consumen pasa intacto al abomaso, donde se digiere junto con la proteína microbiana recién formada.</p>
+  </section>
+
+  <!-- 4.8 Analogía -->
+  <div class="analogy-box">
+    <div class="analogy-label">Analogía didáctica</div>
+    <h3>El rumen como una planta de fermentación previa</h3>
+    <p>Antes de que el alimento del rumiante llegue a un estómago glandular como el de cualquier otro mamífero, pasa por algo parecido a una planta de fermentación industrial: el rumen. Ahí, una población microbiana descompone lo que el propio animal no podría digerir por sí solo, la fibra vegetal, y entrega como resultado ácidos grasos volátiles listos para absorberse. El bovino, en cierto sentido, no digiere pasto: alimenta a una comunidad microbiana que digiere el pasto por él, y luego aprovecha tanto los productos de esa fermentación como a los propios microorganismos.</p>
+  </div>
+
+  <!-- 4.9 Balance -->
+  <div class="balance-card">
+    <div class="balance-row bad">
+      <div class="b-icon"></div>
+      <div>
+        <div class="b-title">Atracón de concentrados</div>
+        <div class="b-desc">Genera un exceso repentino de ácido láctico en el rumen, con caída brusca del pH y riesgo de acidosis sistémica.</div>
+      </div>
+    </div>
+    <div class="balance-arrow">↕</div>
+    <div class="balance-row good">
+      <div class="b-icon"></div>
+      <div>
+        <div class="b-title">Balance forraje-concentrado</div>
+        <div class="b-desc">Mantiene un equilibrio entre ácidos grasos volátiles, sostiene la rumia y protege la salud del rumen a largo plazo.</div>
+      </div>
+    </div>
+    <div class="balance-arrow">↕</div>
+    <div class="balance-row warn">
+      <div class="b-icon"></div>
+      <div>
+        <div class="b-title">Fibra en exceso de lignina</div>
+        <div class="b-desc">Una planta muy madura, con alto contenido de lignina, reduce la digestibilidad de la celulosa y la hemicelulosa.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.6 Sección 3 -->
+  <section class="tema" id="tema-3">
+    <div class="tema-header">
+      <div class="num-circle">3</div>
+      <h2>Del estómago al torrente sanguíneo: la ruta de absorción</h2>
+    </div>
+    <p>La absorción de glucosa depende de proteínas transportadoras de membrana llamadas GLUT, de las cuales se conocen 13 tipos con distinta localización y afinidad. Algunas, como el GLUT3 del cerebro, transportan glucosa de manera constante; otras, como el GLUT2, solo se activan cuando la glucemia está elevada.</p>
+    <p>Los aminoácidos y los pequeños péptidos siguen mecanismos de absorción similares, en su mayoría transporte activo dependiente de sodio, con difusión simple como vía adicional para los aminoácidos más hidrófobos. Los triglicéridos, por su naturaleza hidrófoba, se transportan como lipoproteínas y terminan almacenados en el tejido adiposo, el principal depósito energético del organismo.</p>
+  </section>
+
+  <!-- 4.10 Glosario -->
+  <div class="glossary" id="glosario">
+    <h2>Glosario esencial</h2>
+    <div class="glossary-grid">
+      <div class="gloss-item">
+        <div class="term">Ácidos grasos volátiles (AGV)</div>
+        <div class="def">Ácido acético, propiónico y butírico producidos por la fermentación microbiana en el rumen; principal fuente de energía del rumiante.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="term">Rumia</div>
+        <div class="def">Proceso de regurgitación y remasticación del bolo alimenticio que aumenta la superficie de fibra expuesta a la fermentación.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="term">GLUT</div>
+        <div class="def">Familia de proteínas transportadoras de membrana encargadas de introducir glucosa a las células.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="term">Proteína microbiana</div>
+        <div class="def">Proteína sintetizada por los microorganismos del rumen que, al morir, se convierte en fuente de aminoácidos para el hospedador.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.11 Diagrama -->
+  <div class="cycle-section" id="linea-tiempo">
+    <h2>Ruta digestiva del rumiante</h2>
+    <p class="sub">Del rumen al torrente sanguíneo</p>
+    <div class="cycle-wrap">
+      <svg viewBox="0 0 740 310" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:740px;">
+        <circle cx="370" cy="155" r="58" fill="#0057A8"/>
+        <text x="370" y="148" text-anchor="middle" fill="#fff" font-family="Playfair Display, serif" font-size="15" font-weight="700">Rumen</text>
+        <text x="370" y="168" text-anchor="middle" fill="#fff" font-family="Source Sans 3, sans-serif" font-size="11">fermentación</text>
+
+        <path d="M 370 97 A 90 90 0 0 1 460 155" stroke="#0057A8" stroke-width="3" fill="none" marker-end="url(#arrowBlue3)"/>
+        <path d="M 460 155 A 90 90 0 0 1 370 213" stroke="#E67E22" stroke-width="3" fill="none" marker-end="url(#arrowOrange3)"/>
+        <path d="M 370 213 A 90 90 0 0 1 280 155" stroke="#2E8B3A" stroke-width="3" fill="none" marker-end="url(#arrowGreen3)"/>
+        <path d="M 280 155 A 90 90 0 0 1 370 97" stroke="#009FE3" stroke-width="3" fill="none" marker-end="url(#arrowCyan3)"/>
+
+        <defs>
+          <marker id="arrowBlue3" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#0057A8"/></marker>
+          <marker id="arrowOrange3" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#E67E22"/></marker>
+          <marker id="arrowGreen3" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E8B3A"/></marker>
+          <marker id="arrowCyan3" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#009FE3"/></marker>
+        </defs>
+
+        <rect x="300" y="10" width="140" height="58" rx="10" fill="#E6F4FC" stroke="#0057A8" stroke-width="1.5"/>
+        <text x="370.0" y="32" text-anchor="middle" font-family="Playfair Display, serif" font-size="12.5" font-weight="700" fill="#0057A8">Ingesta y rumia</text>
+        <text x="370.0" y="48" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10.5" fill="#4a5568">Masticación y</text>
+        <text x="370.0" y="61" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10.5" fill="#4a5568">remasticación de fibra</text>
+        <rect x="560" y="126" width="150" height="58" rx="10" fill="#FCEBD8" stroke="#E67E22" stroke-width="1.5"/>
+        <text x="635.0" y="148" text-anchor="middle" font-family="Playfair Display, serif" font-size="12.5" font-weight="700" fill="#E67E22">Fermentación microbiana</text>
+        <text x="635.0" y="164" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10.5" fill="#4a5568">Bacterias, protozoarios</text>
+        <text x="635.0" y="177" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10.5" fill="#4a5568">y hongos anaeróbicos</text>
+        <rect x="300" y="242" width="140" height="58" rx="10" fill="#D4EDDA" stroke="#2E8B3A" stroke-width="1.5"/>
+        <text x="370.0" y="264" text-anchor="middle" font-family="Playfair Display, serif" font-size="12.5" font-weight="700" fill="#2E8B3A">Producción de AGV</text>
+        <text x="370.0" y="280" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10.5" fill="#4a5568">Acético, propiónico</text>
+        <text x="370.0" y="293" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10.5" fill="#4a5568">y butírico</text>
+        <rect x="30" y="126" width="150" height="58" rx="10" fill="#E6F4FC" stroke="#009FE3" stroke-width="1.5"/>
+        <text x="105.0" y="148" text-anchor="middle" font-family="Playfair Display, serif" font-size="12.5" font-weight="700" fill="#009FE3">Absorción ruminal</text>
+        <text x="105.0" y="164" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10.5" fill="#4a5568">Paso directo a la</text>
+        <text x="105.0" y="177" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10.5" fill="#4a5568">pared del rumen</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Referencias bibliográficas -->
+  <div class="references" id="referencias">
+    <div class="references-header">
+      <div class="num-circle">R</div>
+      <h2>Referencias bibliográficas · Unidad 3</h2>
+    </div>
+    <ul class="ref-list">
+      <li class="ref-item">Shimada, M. A. (2007). <em>Nutrición animal</em>. Capítulo 4, Digestión de los animales no rumiantes. México: Trillas.</li>
+      <li class="ref-item">Church, D. C., Pond, W. G. y Pond, K. R. (2002). <em>Fundamentos de nutrición y alimentación de animales</em>. Capítulo 4, El aparato digestivo y la nutrición. 2.ª ed. México: Limusa.</li>
+      <li class="ref-item">Shimada, M. A. (2007). <em>Nutrición animal</em>. Capítulo 5, Digestión de los animales rumiantes. México: Trillas.</li>
+    </ul>
+  </div>
+
+  <!-- 4.12 Footer -->
+  <footer>
+    <div class="footer-logos">
+      <div class="logo-badge"><img src="logo-uat.png" alt="Universidad Autónoma de Tamaulipas"></div>
+      <div class="logo-badge"><img src="logo-fmvz-icono.png" alt="FMVZ"></div>
+    </div>
+    <div>
+      <div class="footer-name">Mosaico<span class="agro">Agro</span>Veterinario</div>
+      <div class="footer-meta">Facultad de Medicina Veterinaria y Zootecnia · Dr. Norberto Treviño Zapata</div>
+      <div class="footer-meta">Materia: Nutrición Animal · Grupo 3D · 2026-3</div>
+    </div>
+    <div class="footer-right">
+      <div>
+        <div class="uat">Universidad Autónoma de Tamaulipas</div>
+        <div class="footer-meta">Km. 5 Carretera Victoria a Mante S/N, Cd. Victoria</div>
+      </div>
+      <div class="art-circle">3</div>
+    </div>
+  </footer>
+
+</div>
+
+<div class="print-btn-wrap">
+  <button class="print-btn" onclick="window.print()">Imprimir / Guardar como PDF</button>
+  <div class="print-hint">Para conservar los colores de fondo, activa la opción "Gráficos de fondo" en el diálogo de impresión.</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MosaicoAgroVeterinario · Grupo 3D · Índice de artículos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul: #22D3EE; --azul-oscuro: #0B1420; --cian: #A3E635; --azul-claro: #16283D;
+    --dorado: #FBBF24; --papel: #0B1420; --tinta: #E7EEF5; --muted: #8AA0B8; --panel: #121D2E; --linea: #223247;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'IBM Plex Sans', sans-serif; background: var(--papel); color: var(--tinta); }
+  .top-bar {
+    background: var(--panel); color: #fff; display: flex; justify-content: space-between; border-bottom:1px solid var(--linea);
+    align-items: center; padding: 12px 32px; font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 1.5px; flex-wrap: wrap; gap: 10px;
+  }
+  .top-bar-left { display: flex; align-items: center; gap: 12px; font-family:'IBM Plex Mono', monospace; font-weight:500; }
+  .top-bar .gold { color: var(--dorado); font-weight: 600; }
+  .logo-badge{ background:#fff; border-radius:6px; padding:3px 8px; display:flex; align-items:center; height:22px; }
+  .logo-badge img{ height:100%; width:auto; display:block; }
+  .footer-logos{ display:flex; gap:8px; align-items:center; }
+  .footer-logos .logo-badge{ height:30px; padding:5px 10px; }
+
+  .hero {
+    background: var(--panel);
+    color: #fff; text-align: center; padding: 60px 24px 54px;
+    border-bottom: 1px solid var(--linea);
+  }
+  .hero .icono-revista {
+    width: 72px; height: 72px; border-radius: 14px; background: var(--azul-claro); border:1px solid var(--azul);
+    display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; color: var(--azul);
+  }
+  .hero .nombre-revista { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; }
+  .hero .nombre-revista .agro { color: var(--dorado); font-style: normal; }
+  .hero .tagline { font-family:'IBM Plex Mono', monospace; font-size: 11px; letter-spacing:1px; opacity: 0.75; margin-top: 12px; max-width: 560px; margin-left: auto; margin-right: auto; color:var(--muted); }
+  .hero .divider { width: 40px; height: 3px; background: var(--azul); margin: 22px auto; border-radius:2px; }
+  .hero .vol { font-family:'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color:var(--muted); }
+
+  .grid-wrap { max-width: 1100px; margin: -32px auto 60px; padding: 0 24px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .card {
+    background: var(--panel); border-radius: 12px; padding: 24px 22px; text-decoration: none; color: var(--tinta);
+    box-shadow: none; display: flex; flex-direction: column; gap: 10px;
+    border: 1px solid var(--linea); border-top: 2px solid var(--azul); transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .card:hover { transform: translateY(-3px); border-color: var(--azul); }
+  .card-num { display: flex; align-items: center; gap: 8px; font-size: 24px; }
+  .card-num span { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; color: var(--azul);
+    text-transform: uppercase; letter-spacing: 1px; background: var(--azul-claro); padding: 3px 9px; border-radius: 5px; }
+  .card h2 { font-family: 'Space Grotesk', sans-serif; font-weight:600; font-size: 16.5px; line-height: 1.3; color:#fff; }
+  .card p { font-size: 12.5px; color: var(--muted); flex: 1; }
+  .card-link { font-family:'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; color: var(--azul); }
+
+  footer { background: var(--panel); color: #fff; border-top:1px solid var(--linea); }
+  .footer-top { display: flex; justify-content: space-between; align-items: center; padding: 24px 40px; flex-wrap: wrap; gap: 14px; max-width: 1100px; margin: 0 auto; }
+  .footer-brand .nombre { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; }
+  .footer-brand .nombre .agro { color: var(--dorado); }
+  .footer-brand .meta { font-family:'IBM Plex Mono', monospace; font-size: 10px; color:var(--muted); margin-top: 5px; }
+  .footer-credit { border-top: 1px solid var(--linea); padding: 18px 40px; display: flex;
+    justify-content: center; gap: 40px; flex-wrap: wrap; }
+  .credit-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .credit-item .rol { font-family:'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color:var(--muted); text-align: center; }
+
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) {
+    .top-bar{padding:8px 16px; font-size:9.5px; flex-direction:column;}
+    .hero { padding: 34px 20px 46px; }
+    .hero .icono-revista{width:56px; height:56px; font-size:15px; margin-bottom:12px;}
+    .hero .nombre-revista { font-size: 24px; }
+    .hero .tagline{font-size:10.5px;}
+    .grid-wrap{margin-top:-20px;}
+    .grid { grid-template-columns: 1fr; }
+    .footer-top{flex-direction:column; text-align:center;}
+    .footer-logos{justify-content:center;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <div class="logo-badge"><img src="logo-uat.png" alt="Universidad Autónoma de Tamaulipas"></div>
+      <div class="logo-badge"><img src="logo-fmvz-icono.png" alt="FMVZ"></div>
+      FMVZ · UNIVERSIDAD AUTÓNOMA DE TAMAULIPAS
+    </div>
+    <div><span class="gold">GRUPO 3D</span> · NUTRICIÓN ANIMAL · 2026-3</div>
+  </div>
+
+  <div class="hero">
+    <div class="icono-revista">MAV</div>
+    <div class="nombre-revista">Mosaico<span class="agro">Agro</span>Veterinario</div>
+    <p class="tagline">DIVULGACIÓN CIENTÍFICA · NUTRICIÓN ANIMAL · DRA. LUZ YOSAHANDY PEÑA AVELINO · FMVZ-UAT</p>
+    <div class="divider"></div>
+    <div class="vol">Grupo 3D · 2026-3 · 9 artículos, uno por cada Unidad temática</div>
+  </div>
+
+  <div class="grid-wrap">
+    <div class="grid">
+
+      <a class="card" href="Articulo1_2026.html">
+        <div class="card-num">🧬<span>Art. 1</span></div>
+        <h2>Desarrollo evolutivo y conceptos generales de nutrición</h2>
+        <p>Por qué entender el origen de la nutrición como ciencia es el punto de partida en la formación del MVZ</p>
+        <span class="card-link">Leer artículo →</span>
+      </a>
+
+      <a class="card" href="Articulo2_2026.html">
+        <div class="card-num">🩺<span>Art. 2</span></div>
+        <h2>Aparato digestivo</h2>
+        <p>Un mismo plan anatómico, tres formas distintas de aprovechar el alimento: herbívoros, omnívoros y carnívoros</p>
+        <span class="card-link">Leer artículo →</span>
+      </a>
+
+      <a class="card" href="Articulo3_2026.html">
+        <div class="card-num">🌾<span>Art. 3</span></div>
+        <h2>Procesos digestivos</h2>
+        <p>Cómo el organismo convierte carbohidratos, lípidos y proteínas en energía, con una ruta distinta para rumiantes y no rumiantes</p>
+        <span class="card-link">Leer artículo →</span>
+      </a>
+
+      <a class="card" href="Articulo4_2026.html">
+        <div class="card-num">⚡<span>Art. 4</span></div>
+        <h2>Metabolismo energético</h2>
+        <p>Las rutas que el organismo activa según sobren o falten calorías, y las hormonas que deciden cuál usar</p>
+        <span class="card-link">Leer artículo →</span>
+      </a>
+
+      <a class="card" href="Articulo5_2026.html">
+        <div class="card-num">🧪<span>Art. 5</span></div>
+        <h2>Metabolismo Nitrogenado</h2>
+        <p>De dónde vienen los aminoácidos que el cuerpo no puede fabricar, y qué pasa cuando sobran o faltan</p>
+        <span class="card-link">Leer artículo →</span>
+      </a>
+
+      <a class="card" href="Articulo6_2026.html">
+        <div class="card-num">🔥<span>Art. 6</span></div>
+        <h2>Utilización y pérdida de la energía</h2>
+        <p>Por qué la energía que un animal come nunca es la misma que la energía que realmente aprovecha</p>
+        <span class="card-link">Leer artículo →</span>
+      </a>
+
+      <a class="card" href="Articulo7_2026.html">
+        <div class="card-num">🍽️<span>Art. 7</span></div>
+        <h2>Consumo voluntario</h2>
+        <p>Por qué un animal deja de comer cuando "ya tuvo suficiente", y qué factores mueven esa decisión</p>
+        <span class="card-link">Leer artículo →</span>
+      </a>
+
+      <a class="card" href="Articulo8_2026.html">
+        <div class="card-num">💊<span>Art. 8</span></div>
+        <h2>Vitaminas y minerales</h2>
+        <p>Micronutrientes que se necesitan en cantidades mínimas, pero cuya falta o exceso puede comprometer la salud y la producción</p>
+        <span class="card-link">Leer artículo →</span>
+      </a>
+
+      <a class="card" href="Articulo9_2026.html">
+        <div class="card-num">🩹<span>Art. 9</span></div>
+        <h2>Enfermedades relacionadas con la nutrición y alimentación</h2>
+        <p>Cuando la dieta deja de ser un factor de manejo y se convierte en la causa directa de la enfermedad</p>
+        <span class="card-link">Leer artículo →</span>
+      </a>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-logos">
+        <div class="logo-badge"><img src="logo-uat.png" alt="Universidad Autónoma de Tamaulipas"></div>
+        <div class="logo-badge"><img src="logo-fmvz-icono.png" alt="FMVZ"></div>
+      </div>
+      <div class="footer-brand">
+        <div class="nombre">Mosaico<span class="agro">Agro</span>Veterinario</div>
+        <div class="meta">GRUPO 3D · 2026-3 · FMVZ-UAT</div>
+      </div>
+      <div>Universidad Autónoma de Tamaulipas</div>
+    </div>
+    <div class="footer-credit">
+      <div class="credit-item">
+        <div class="rol">Facultad de Medicina Veterinaria y Zootecnia<br>Dr. Norberto Treviño Zapata</div>
+      </div>
+      <div class="credit-item">
+        <div class="rol">Materia: Nutrición Animal<br>Grupo 3D · 2026-3</div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

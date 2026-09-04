@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MosaicoAgroVeterinario · Grupo 3D · Artículo 2 · Aparato digestivo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul: #22D3EE;
+    --azul-oscuro: #0B1420;
+    --cian: #A3E635;
+    --azul-claro: #16283D;
+    --dorado: #FBBF24;
+    --verde: #34D399;
+    --verde-claro: #123024;
+    --rojo: #F87171;
+    --naranja: #FB923C;
+    --papel: #0B1420;
+    --tinta: #E7EEF5;
+    --muted: #8AA0B8;
+    --panel: #121D2E;
+    --linea: #223247;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--papel);
+    color:var(--tinta);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.65;
+  }
+
+  /* Sidebar de navegación (dashboard) */
+  .sidebar{
+    position:fixed; top:0; left:0; width:260px; height:100vh; overflow-y:auto;
+    background:var(--panel); border-right:1px solid var(--linea);
+    padding:26px 20px; display:flex; flex-direction:column; gap:24px; z-index:10;
+  }
+  .sidebar-logos{display:flex; gap:8px;}
+  .sidebar-logos .logo-badge{background:#fff; border-radius:6px; padding:4px 8px; height:26px; display:flex; align-items:center;}
+  .sidebar-logos .logo-badge img{height:100%; width:auto; display:block;}
+  .sidebar-title{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:16px; color:#fff; margin-top:2px;}
+  .sidebar-title .agro{color:var(--dorado); font-style:normal;}
+  .sidebar-tag{font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:1.5px; color:var(--azul); text-transform:uppercase; margin-top:6px;}
+  .sidebar-nav{display:flex; flex-direction:column; gap:2px;}
+  .sidebar-nav a{
+    color:var(--muted); text-decoration:none; font-size:12.5px; padding:9px 10px; border-radius:6px;
+    border-left:2px solid transparent;
+  }
+  .sidebar-nav a:hover{background:rgba(34,211,238,0.08); color:var(--tinta); border-left-color:var(--azul);}
+  .sidebar-nav a.back{color:var(--azul); font-weight:600; margin-bottom:10px; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.5px;}
+  .sidebar-footer{margin-top:auto; font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--muted); border-top:1px solid var(--linea); padding-top:14px;}
+
+  .page{max-width:860px; margin:0 0 0 260px; background:var(--papel);}
+  .print-btn-wrap{margin-left:260px;}
+  .cover-top-bar{display:none;}
+
+  /* Hero: tarjeta de cabecera tipo dashboard */
+  .cover-hero{
+    position:relative;
+    background:var(--panel);
+    background-image:none;
+    border:1px solid var(--linea);
+    border-radius:14px;
+    display:grid;
+    grid-template-columns:1fr;
+    margin:30px 32px 0;
+    padding:32px 34px 30px;
+    color:var(--tinta);
+  }
+  .hero-illustration{display:none;}
+  .hero-text .revista-name{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:21px;
+    letter-spacing:0.2px;
+  }
+  .hero-text .revista-name .agro{color:var(--dorado); font-style:normal;}
+  .hero-text .tagline{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-top:6px;
+  }
+  .hero-divider{
+    width:40px; height:3px; background:var(--azul);
+    margin:18px 0 14px;
+    border-radius:2px;
+  }
+  .hero-text .art-label{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    background:rgba(34,211,238,0.08);
+    border:1px solid var(--azul);
+    color:var(--azul);
+    border-radius:5px;
+    padding:4px 12px;
+    margin-bottom:16px;
+  }
+  .hero-text h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:28px;
+    line-height:1.28;
+    color:#fff;
+  }
+  .hero-text .subtitle{
+    margin-top:14px;
+    font-weight:300;
+    font-size:15px;
+    max-width:560px;
+    color:var(--muted);
+  }
+
+  /* Banda de autora */
+  .author-band{
+    background:transparent;
+    border-bottom:1px solid var(--linea);
+    color:var(--tinta);
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:18px 32px;
+    margin:0 32px;
+    flex-wrap:wrap;
+  }
+  .avatar{
+    width:38px; height:38px; border-radius:8px;
+    background:var(--azul-claro); border:1px solid var(--linea);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:13px;
+    color:var(--azul); flex-shrink:0;
+  }
+  .author-info .name{font-weight:600; font-size:13.5px; color:var(--tinta);}
+  .author-info .affiliation{font-size:11px; color:var(--muted);}
+  .chips{display:flex; gap:6px; margin-left:auto; flex-wrap:wrap;}
+  .chip{
+    border-radius:4px; padding:4px 10px; font-size:10px;
+    font-family:'IBM Plex Mono', monospace; text-transform:uppercase;
+    border:1px solid var(--linea); background:var(--panel); color:var(--muted);
+  }
+  .chip.gold{border-color:var(--dorado); color:var(--dorado); font-weight:600;}
+
+  /* Lead */
+  .lead{
+    background:var(--panel);
+    border:1px solid var(--linea);
+    border-left:3px solid var(--azul);
+    margin:26px 32px 0;
+    padding:28px 30px;
+    border-radius:10px;
+  }
+  .lead p{
+    font-weight:300; font-size:15px; color:var(--tinta);
+  }
+  .lead .dropcap{
+    float:left;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:52px;
+    line-height:0.8;
+    font-weight:700;
+    color:var(--azul);
+    padding-right:10px;
+    margin-top:4px;
+  }
+  .lead-stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin-top:24px;
+  }
+  .stat-card{
+    background:var(--azul-oscuro);
+    border:1px solid var(--linea);
+    border-top:2px solid var(--azul);
+    border-radius:8px;
+    padding:14px 14px;
+    text-align:center;
+  }
+  .stat-card .num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:25px;
+    font-weight:600;
+    color:var(--azul);
+  }
+  .stat-card.green .num{color:var(--verde);}
+  .stat-card.red .num{color:var(--rojo);}
+  .stat-card .label{font-size:11px; color:var(--muted); margin-top:6px;}
+
+  /* Alerta */
+  .alert-box{
+    margin:22px 32px 0;
+    background:rgba(248,113,113,0.06);
+    border:1px solid var(--rojo);
+    border-radius:10px;
+    padding:18px 20px;
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+  }
+  .alert-box .icon{
+    width:24px; height:24px; border-radius:6px;
+    background:var(--rojo); color:var(--azul-oscuro);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:14px;
+    flex-shrink:0;
+  }
+  .alert-box .alert-label{
+    color:var(--rojo);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+    margin-bottom:5px;
+  }
+  .alert-box p{font-size:13.5px; color:var(--tinta);}
+
+  /* Secciones numeradas */
+  section.tema{
+    padding:32px 32px 6px;
+  }
+  .tema-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:14px;
+  }
+  .num-circle{
+    width:30px; height:30px; border-radius:8px;
+    background:var(--azul-claro); border:1px solid var(--azul); color:var(--azul);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px; font-weight:700; flex-shrink:0;
+  }
+  .tema-header h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:19px;
+    font-weight:600;
+    color:#fff;
+    border-bottom:none;
+    padding-bottom:0;
+    display:inline-block;
+  }
+  .tema p{
+    font-size:14px;
+    color:var(--muted);
+    margin-bottom:12px;
+  }
+  .tema p strong{color:var(--tinta);}
+
+  /* Tarjetas de mecanismos */
+  .cards-3col{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    padding:8px 32px 32px;
+  }
+  .concept-card{
+    border-radius:10px;
+    overflow:hidden;
+    border:1px solid var(--linea);
+    background:var(--panel);
+    box-shadow:none;
+    display:flex;
+    flex-direction:column;
+  }
+  .concept-card .card-header{
+    padding:14px;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    border-bottom:1px solid var(--linea);
+  }
+  .concept-card .card-header .emoji{font-size:18px;}
+  .concept-card .card-header h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:14px;
+    font-weight:600;
+  }
+  .concept-card.blue .card-header{border-bottom:2px solid var(--azul);}
+  .concept-card.orange .card-header{border-bottom:2px solid var(--naranja);}
+  .concept-card.green .card-header{border-bottom:2px solid var(--verde);}
+  .concept-card .card-body{
+    background:transparent;
+    padding:14px;
+    font-size:12.5px;
+    color:var(--muted);
+    flex:1;
+  }
+  .card-tag{
+    display:inline-block;
+    margin:0 14px 14px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:9.5px;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    font-weight:600;
+    padding:3px 9px;
+    border-radius:10px;
+  }
+  .concept-card.blue .card-tag{background:var(--azul-claro); color:var(--azul);}
+  .concept-card.orange .card-tag{background:rgba(251,146,60,0.12); color:var(--naranja);}
+  .concept-card.green .card-tag{background:var(--verde-claro); color:var(--verde);}
+
+  /* Analogía */
+  .analogy-box{
+    margin:6px 32px 32px;
+    background:linear-gradient(135deg, var(--panel), var(--azul-claro));
+    border:1px solid var(--linea);
+    border-radius:12px;
+    padding:26px 28px;
+    color:var(--tinta);
+  }
+  .analogy-label{
+    color:var(--dorado);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin-bottom:9px;
+  }
+  .analogy-box h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:18px;
+    margin-bottom:10px;
+    color:#fff;
+  }
+  .analogy-box p{
+    color:var(--muted);
+    font-size:13.5px;
+    font-weight:300;
+  }
+  .analogy-box p b{color:var(--dorado); font-weight:700;}
+
+  /* Balance */
+  .balance-card{
+    margin:6px 32px 32px;
+    background:var(--panel);
+    border:1px solid var(--linea);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .balance-row{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:14px 18px;
+    border-left:4px solid transparent;
+  }
+  .balance-row.bad{border-left-color:var(--rojo);}
+  .balance-row.good{border-left-color:var(--verde);}
+  .balance-row.warn{border-left-color:var(--naranja);}
+  .balance-row .b-icon{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .balance-row.bad .b-icon{background:var(--rojo);}
+  .balance-row.good .b-icon{background:var(--verde);}
+  .balance-row.warn .b-icon{background:var(--naranja);}
+  .balance-row .b-title{font-weight:600; font-size:13px; color:var(--tinta);}
+  .balance-row .b-desc{font-size:11.5px; color:var(--muted);}
+  .balance-arrow{
+    text-align:center;
+    color:var(--azul);
+    font-size:16px;
+    padding:1px 0;
+  }
+
+  /* Glosario */
+  .glossary{
+    padding:4px 32px 32px;
+  }
+  .glossary h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:18px;
+    margin-bottom:14px;
+    color:#fff;
+  }
+  .glossary-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+  .gloss-item{
+    border-radius:8px;
+    padding:12px 16px;
+    background:var(--panel);
+    border:1px solid var(--linea);
+    border-left:3px solid var(--azul);
+  }
+  .gloss-item:nth-child(even){border-left-color:var(--cian);}
+  .gloss-item .term{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:13.5px;
+    color:#fff;
+    margin-bottom:3px;
+  }
+  .gloss-item .def{font-size:11.5px; color:var(--muted);}
+
+  /* Diagrama ciclo */
+  .cycle-section{padding:4px 32px 36px;}
+  .cycle-section h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:18px;
+    margin-bottom:4px;
+    color:#fff;
+  }
+  .cycle-section .sub{font-size:12px; color:var(--muted); margin-bottom:16px;}
+  .cycle-wrap{display:flex; justify-content:center;}
+  .cycle-wrap svg{filter:invert(0.93) hue-rotate(165deg) saturate(1.5) brightness(1.05);}
+
+  /* Referencias bibliográficas */
+  .references{padding:4px 32px 36px;}
+  .references-header{
+    display:flex; align-items:center; gap:12px; margin-bottom:14px;
+  }
+  .references-header h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:18px;
+    color:#fff;
+  }
+  .ref-list{list-style:none;}
+  .ref-item{
+    background:var(--panel);
+    border:1px solid var(--linea);
+    border-left:3px solid var(--azul);
+    border-radius:8px;
+    padding:12px 16px;
+    margin-bottom:9px;
+    font-size:12.5px;
+    color:var(--tinta);
+  }
+  .ref-item a{color:var(--azul); word-break:break-all;}
+
+  /* Footer */
+  footer{
+    background:var(--panel);
+    border-top:1px solid var(--linea);
+    color:var(--tinta);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:26px 32px;
+    margin-left:0;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  footer .footer-name{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    color:#fff;
+  }
+  footer .footer-name .agro{color:var(--dorado); font-style:normal;}
+  footer .footer-meta{font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--muted); margin-top:5px;}
+  footer .footer-right{
+    display:flex; align-items:center; gap:12px; text-align:right;
+  }
+  footer .footer-right .uat{font-size:11px; color:var(--muted);}
+  .footer-logos{display:flex; gap:8px; align-items:center;}
+  .footer-logos .logo-badge{background:#fff; border-radius:6px; height:26px; padding:4px 9px; display:flex; align-items:center;}
+  .footer-logos .logo-badge img{height:100%; width:auto; display:block;}
+  .art-circle{
+    width:34px; height:34px; border-radius:8px;
+    background:var(--azul-claro); border:1px solid var(--azul); color:var(--azul);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:700; font-size:13px;
+  }
+
+  .print-btn-wrap{
+    text-align:center;
+    padding:26px 20px 40px;
+    background:var(--papel);
+  }
+  .print-btn{
+    background:var(--azul);
+    color:var(--azul-oscuro);
+    border:none;
+    padding:11px 26px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+    font-family:'IBM Plex Sans', sans-serif;
+  }
+  .print-btn:hover{background:var(--cian);}
+  .print-hint{font-size:11px; color:var(--muted); margin-top:10px;}
+
+  @media print{
+    .print-btn-wrap{display:none;}
+    .sidebar{display:none;}
+    .page{margin-left:0;}
+    body{background:#fff;}
+  }
+
+  @media (max-width:900px){
+    .sidebar{
+      position:static; width:100%; height:auto;
+      flex-direction:row; flex-wrap:wrap; align-items:center;
+      padding:14px 18px; gap:14px;
+    }
+    .sidebar-nav, .sidebar-footer{display:none;}
+    .page{margin-left:0; max-width:100%;}
+    .print-btn-wrap{margin-left:0;}
+    .cover-hero, .author-band, .lead, .alert-box, section.tema, .cards-3col, .analogy-box, .balance-card, .glossary, .cycle-section, .references{margin-left:16px; margin-right:16px;}
+  }
+  @media (max-width:720px){
+    .lead-stats, .cards-3col, .glossary-grid{grid-template-columns:1fr;}
+    footer{flex-direction:column; text-align:center;}
+    footer .footer-right{flex-direction:column; text-align:center;}
+    .footer-logos{justify-content:center;}
+    .chips{margin-left:0; width:100%; justify-content:center;}
+  }
+
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div>
+    <div class="sidebar-logos">
+      <div class="logo-badge"><img src="logo-uat.png" alt="Universidad Autónoma de Tamaulipas"></div>
+      <div class="logo-badge"><img src="logo-fmvz-icono.png" alt="FMVZ"></div>
+    </div>
+    <div class="sidebar-title">Mosaico<span class="agro">Agro</span>Veterinario</div>
+    <div class="sidebar-tag">Grupo 3D · 2026-3</div>
+  </div>
+  <nav class="sidebar-nav">
+    <a class="back" href="index.html">&larr; ÍNDICE</a>
+    <a href="#inicio">Inicio</a>
+    <a href="#tema-1">Tema 01</a>
+    <a href="#tema-2">Tema 02</a>
+    <a href="#tema-3">Tema 03</a>
+    <a href="#glosario">Glosario</a>
+    <a href="#linea-tiempo">Línea evolutiva</a>
+    <a href="#referencias">Referencias</a>
+  </nav>
+  <div class="sidebar-footer">ART. 2 · UNIDAD 2</div>
+</aside>
+<div class="page" id="inicio">
+
+  <!-- 4.1 Barra superior -->
+  <div class="cover-top-bar">
+    <span>FMVZ · Universidad Autónoma de Tamaulipas</span>
+    <span><span class="gold">Grupo 3D</span> · Art. 2 · 2026-3</span>
+  </div>
+
+  <!-- 4.2 Hero -->
+  <div class="cover-hero">
+    <div class="hero-text">
+      <div class="revista-name">Mosaico<span class="agro">Agro</span>Veterinario</div>
+      <div class="tagline">Divulgación científica · FMVZ-UAT</div>
+      <div class="hero-divider"></div>
+      <span class="art-label">Artículo 2 · Unidad 2</span>
+      <h1>Aparato digestivo</h1>
+      <p class="subtitle">Un mismo plan anatómico, tres formas distintas de aprovechar el alimento: herbívoros, omnívoros y carnívoros.</p>
+    </div>
+    <div class="hero-illustration">
+      <svg viewBox="0 0 300 300" width="280" height="280" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="150" cy="150" r="110" fill="rgba(255,255,255,0.08)"/>
+        <circle cx="150" cy="150" r="80" fill="rgba(255,255,255,0.10)"/>
+        <path d="M150 60 Q 130 110 150 150 Q 170 190 150 240" stroke="#F5A623" stroke-width="4" fill="none" opacity="0.9"/>
+        <circle cx="150" cy="90" r="10" fill="#009FE3" opacity="0.85"/>
+        <circle cx="150" cy="150" r="16" fill="#E67E22" opacity="0.85"/>
+        <circle cx="150" cy="210" r="10" fill="#2E8B3A" opacity="0.85"/>
+        <g transform="translate(52,50)">
+          <circle cx="0" cy="0" r="20" fill="#2E8B3A"/>
+          <text x="0" y="5" font-size="10.5" font-family="Source Sans 3, sans-serif" font-weight="700" fill="#fff" text-anchor="middle">Boca</text>
+        </g>
+        <g transform="translate(248,60)">
+          <circle cx="0" cy="0" r="20" fill="#0057A8"/>
+          <text x="0" y="5" font-size="10.5" font-family="Source Sans 3, sans-serif" font-weight="700" fill="#fff" text-anchor="middle">Estóm.</text>
+        </g>
+        <g transform="translate(45,235)">
+          <circle cx="0" cy="0" r="20" fill="#E67E22"/>
+          <text x="0" y="5" font-size="10.5" font-family="Source Sans 3, sans-serif" font-weight="700" fill="#fff" text-anchor="middle">Intest.</text>
+        </g>
+        <g transform="translate(250,235)">
+          <circle cx="0" cy="0" r="20" fill="#009FE3"/>
+          <text x="0" y="5" font-size="10.5" font-family="Source Sans 3, sans-serif" font-weight="700" fill="#fff" text-anchor="middle">Glánd.</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- 4.3 Banda de autora -->
+  <div class="author-band">
+    <div class="avatar">LP</div>
+    <div class="author-info">
+      <div class="name">Dra. Luz Yosahandy Peña Avelino</div>
+      <div class="affiliation">FMVZ · Universidad Autónoma de Tamaulipas</div>
+    </div>
+    <div class="chips">
+      <span class="chip gold">Grupo 3D</span>
+      <span class="chip">Nutrición Animal</span>
+      <span class="chip">2026-3</span>
+    </div>
+  </div>
+
+  <!-- 4.4 Lead -->
+  <div class="lead">
+    <p><span class="dropcap">E</span>l aparato digestivo es el conjunto de órganos encargados de transformar el alimento en partículas que el organismo puede absorber y utilizar. El tubo digestivo recorre entre 9 y 10 metros desde la boca hasta el ano, pasando por faringe, esófago, estómago, intestino delgado e intestino grueso. El estado de salud y la productividad de un animal dependen en buena medida del funcionamiento correcto de este sistema, regulado en conjunto por mecanismos hormonales y nerviosos. La forma concreta que toma cada tramo varía según la dieta de la especie: herbívora, omnívora o carnívora.</p>
+    <div class="lead-stats">
+      <div class="stat-card">
+        <div class="num">9-10 m</div>
+        <div class="label">Longitud aproximada del tubo digestivo</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">16h</div>
+        <div class="label">Duración del tema en el programa</div>
+      </div>
+      <div class="stat-card green">
+        <div class="num">3</div>
+        <div class="label">Tipos de alimentación: herbívora, omnívora, carnívora</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.5 Alerta -->
+  <div class="alert-box">
+    <div class="icon">!</div>
+    <div>
+      <div class="alert-label">Dato crítico para la práctica profesional</div>
+      <p>Los complejos migradores motores (CMM) limpian el estómago y el intestino delgado de restos de alimento no digerido durante el ayuno. Cuando este mecanismo falla, el sobrecrecimiento bacteriano en el intestino delgado puede alterar el balance de fluidos y provocar diarreas; reconocer esta función motora ayuda al MVZ a interpretar cuadros digestivos que, a simple vista, parecen solo alimentarios.</p>
+    </div>
+  </div>
+
+  <!-- 4.6 Sección 1 -->
+  <section class="tema" id="tema-1">
+    <div class="tema-header">
+      <div class="num-circle">1</div>
+      <h2>Un mismo plan, tres estrategias digestivas</h2>
+    </div>
+    <p>El tracto gastrointestinal comparte, en mamíferos, aves y peces, una organización básica: boca, faringe, esófago, estómago, intestino delgado (duodeno, yeyuno, íleon), intestino grueso (ciego, colon, recto) y ano. Lo que cambia entre especies es la proporción y complejidad de cada segmento, en función del tipo de dieta que procesan.</p>
+    <p>Los herbívoros desarrollan aparatos digestivos más complejos y voluminosos, capaces de fermentar grandes cantidades de fibra vegetal. Los carnívoros, en cambio, procesan una dieta más concentrada y de digestión menos laboriosa, por lo que su tracto es proporcionalmente más corto. Este contraste explica por qué el mismo plan anatómico produce animales tan distintos en su fisiología digestiva.</p>
+  </section>
+
+  <!-- 4.7 Tarjetas de conceptos -->
+  <div class="cards-3col">
+    <div class="concept-card blue">
+      <div class="card-header"><span class="emoji">🦷</span><h3>Cavidad bucal</h3></div>
+      <div class="card-body">Primer punto de contacto con el alimento: masticación, salivación y formación del bolo alimenticio antes de la deglución.</div>
+      <span class="card-tag">Proceso fisiológico</span>
+    </div>
+    <div class="concept-card orange">
+      <div class="card-header"><span class="emoji">🌀</span><h3>Motilidad gástrica</h3></div>
+      <div class="card-body">El estómago actúa como reservorio, reduce el tamaño de las partículas y regula la velocidad de vaciamiento hacia el duodeno.</div>
+      <span class="card-tag">Función mecánica</span>
+    </div>
+    <div class="concept-card green">
+      <div class="card-header"><span class="emoji">🧫</span><h3>Glándulas anejas</h3></div>
+      <div class="card-body">Salivales, páncreas exocrino e hígado vierten sus secreciones al tubo digestivo, aportando enzimas y ácidos biliares clave para la digestión.</div>
+      <span class="card-tag">Apoyo digestivo</span>
+    </div>
+  </div>
+
+  <!-- 4.6 Sección 2 -->
+  <section class="tema" id="tema-2">
+    <div class="tema-header">
+      <div class="num-circle">2</div>
+      <h2>Motilidad: el movimiento que hace posible la digestión</h2>
+    </div>
+    <p>La motilidad gástrica cumple tres funciones: sirve de reservorio del alimento durante la comida, reduce el tamaño de las partículas mezclándolas con las secreciones, y regula la velocidad con que el quimo pasa al duodeno. El estómago se divide funcionalmente en una zona oral (fondo y cuerpo) y una zona caudal (antro), cada una con patrones de movimiento distintos.</p>
+    <p>En el intestino delgado predominan los movimientos de segmentación rítmica, que mezclan el contenido con las secreciones sin desplazarlo demasiado, favoreciendo la digestión y la absorción. Durante el ayuno aparece un patrón distinto, los complejos migradores motores, que recorren el tubo digestivo cada 75 a 90 minutos para arrastrar los restos no digeridos hacia el intestino grueso.</p>
+    <p>El intestino grueso combina movimientos de segmentación, llamados haustraciones, con movimientos en masa que empujan el contenido hacia el recto una o tres veces al día. Este último paso culmina en el reflejo de defecación, coordinado por la relajación del esfínter anal interno.</p>
+  </section>
+
+  <!-- 4.8 Analogía -->
+  <div class="analogy-box">
+    <div class="analogy-label">Analogía didáctica</div>
+    <h3>El tubo digestivo como una fábrica con estaciones de trabajo</h3>
+    <p>Cada segmento del tubo digestivo funciona como una estación especializada en una línea de producción: la boca reduce el tamaño de la materia prima, el estómago mezcla y almacena, el intestino delgado extrae lo aprovechable y el intestino grueso recupera el agua antes de desechar lo que sobra. Ninguna estación trabaja sola: hormonas como la gastrina, la secretina y la colecistocinina coordinan el ritmo de toda la línea, ajustando la velocidad según el tipo y la cantidad de alimento que entra.</p>
+  </div>
+
+  <!-- 4.9 Balance -->
+  <div class="balance-card">
+    <div class="balance-row bad">
+      <div class="b-icon"></div>
+      <div>
+        <div class="b-title">Falla en los complejos migradores motores</div>
+        <div class="b-desc">El intestino delgado no se limpia entre comidas, lo que favorece el sobrecrecimiento bacteriano y cuadros de diarrea.</div>
+      </div>
+    </div>
+    <div class="balance-arrow">↕</div>
+    <div class="balance-row good">
+      <div class="b-icon"></div>
+      <div>
+        <div class="b-title">Motilidad coordinada por hormonas gastrointestinales</div>
+        <div class="b-desc">Gastrina, secretina, CCK y motilina ajustan el vaciamiento gástrico y la secreción según el tipo de alimento ingerido.</div>
+      </div>
+    </div>
+    <div class="balance-arrow">↕</div>
+    <div class="balance-row warn">
+      <div class="b-icon"></div>
+      <div>
+        <div class="b-title">Vaciamiento gástrico alterado</div>
+        <div class="b-desc">Alimentos muy hipertónicos o con alto contenido de lípidos retrasan el vaciamiento, lo que puede comprometer la digestión posterior.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.6 Sección 3 -->
+  <section class="tema" id="tema-3">
+    <div class="tema-header">
+      <div class="num-circle">3</div>
+      <h2>Secreciones digestivas y su control neuroendocrino</h2>
+    </div>
+    <p>La saliva, el jugo gástrico, el jugo pancreático y la bilis comparten una misma función: fraccionar químicamente el alimento en moléculas simples que puedan absorberse. El jugo gástrico contiene ácido clorhídrico, pepsinógenos y moco protector; el jugo pancreático aporta bicarbonato y enzimas hidrolíticas; la bilis, sintetizada en el hígado, permite digerir las grasas y las vitaminas liposolubles.</p>
+    <p>Estas secreciones están reguladas por tres mecanismos: endocrino, cuando una hormona viaja por la sangre hasta su célula diana; paracrino, cuando actúa localmente por difusión; y neurocrino, cuando la señal proviene directamente de una terminación nerviosa. Gastrina, secretina, colecistocinina, GIP, motilina y grelina son las hormonas gastrointestinales mejor caracterizadas hasta ahora.</p>
+  </section>
+
+  <!-- 4.10 Glosario -->
+  <div class="glossary" id="glosario">
+    <h2>Glosario esencial</h2>
+    <div class="glossary-grid">
+      <div class="gloss-item">
+        <div class="term">Motilidad</div>
+        <div class="def">Conjunto de movimientos musculares del tubo digestivo que desplazan y mezclan el contenido alimenticio.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="term">Secretina</div>
+        <div class="def">Hormona liberada por el duodeno ante la presencia de ácido, que estimula la fracción hidroelectrolítica del jugo pancreático.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="term">Colecistocinina (CCK)</div>
+        <div class="def">Hormona intestinal que estimula la fracción enzimática del jugo pancreático y la contracción de la vesícula biliar.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="term">Complejo migrador motor (CMM)</div>
+        <div class="def">Patrón de motilidad que aparece durante el ayuno y limpia el estómago y el intestino delgado de restos no digeridos.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.11 Diagrama -->
+  <div class="cycle-section" id="linea-tiempo">
+    <h2>Recorrido funcional del tubo digestivo</h2>
+    <p class="sub">Cuatro estaciones y su función dominante</p>
+    <div class="cycle-wrap">
+      <svg viewBox="0 0 740 310" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:740px;">
+        <circle cx="370" cy="155" r="58" fill="#0057A8"/>
+        <text x="370" y="148" text-anchor="middle" fill="#fff" font-family="Playfair Display, serif" font-size="15" font-weight="700">Tubo</text>
+        <text x="370" y="168" text-anchor="middle" fill="#fff" font-family="Source Sans 3, sans-serif" font-size="11">digestivo</text>
+
+        <path d="M 370 97 A 90 90 0 0 1 460 155" stroke="#0057A8" stroke-width="3" fill="none" marker-end="url(#arrowBlue2)"/>
+        <path d="M 460 155 A 90 90 0 0 1 370 213" stroke="#E67E22" stroke-width="3" fill="none" marker-end="url(#arrowOrange2)"/>
+        <path d="M 370 213 A 90 90 0 0 1 280 155" stroke="#2E8B3A" stroke-width="3" fill="none" marker-end="url(#arrowGreen2)"/>
+        <path d="M 280 155 A 90 90 0 0 1 370 97" stroke="#009FE3" stroke-width="3" fill="none" marker-end="url(#arrowCyan2)"/>
+
+        <defs>
+          <marker id="arrowBlue2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#0057A8"/></marker>
+          <marker id="arrowOrange2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#E67E22"/></marker>
+          <marker id="arrowGreen2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E8B3A"/></marker>
+          <marker id="arrowCyan2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#009FE3"/></marker>
+        </defs>
+
+        <rect x="300" y="10" width="140" height="58" rx="10" fill="#E6F4FC" stroke="#0057A8" stroke-width="1.5"/>
+        <text x="370.0" y="32" text-anchor="middle" font-family="Playfair Display, serif" font-size="12.5" font-weight="700" fill="#0057A8">Boca y esófago</text>
+        <text x="370.0" y="48" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10.5" fill="#4a5568">Masticación,</text>
+        <text x="370.0" y="61" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10.5" fill="#4a5568">salivación, deglución</text>
+        <rect x="560" y="126" width="150" height="58" rx="10" fill="#FCEBD8" stroke="#E67E22" stroke-width="1.5"/>
+        <text x="635.0" y="148" text-anchor="middle" font-family="Playfair Display, serif" font-size="12.5" font-weight="700" fill="#E67E22">Estómago</text>
+        <text x="635.0" y="164" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10.5" fill="#4a5568">Reservorio,</text>
+        <text x="635.0" y="177" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10.5" fill="#4a5568">mezcla y vaciamiento</text>
+        <rect x="300" y="242" width="140" height="58" rx="10" fill="#D4EDDA" stroke="#2E8B3A" stroke-width="1.5"/>
+        <text x="370.0" y="264" text-anchor="middle" font-family="Playfair Display, serif" font-size="12.5" font-weight="700" fill="#2E8B3A">Intestino delgado</text>
+        <text x="370.0" y="280" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10.5" fill="#4a5568">Digestión enzimática</text>
+        <text x="370.0" y="293" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10.5" fill="#4a5568">y absorción</text>
+        <rect x="30" y="126" width="150" height="58" rx="10" fill="#E6F4FC" stroke="#009FE3" stroke-width="1.5"/>
+        <text x="105.0" y="148" text-anchor="middle" font-family="Playfair Display, serif" font-size="12.5" font-weight="700" fill="#009FE3">Intestino grueso</text>
+        <text x="105.0" y="164" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10.5" fill="#4a5568">Absorción de agua</text>
+        <text x="105.0" y="177" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="10.5" fill="#4a5568">y defecación</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Referencias bibliográficas -->
+  <div class="references" id="referencias">
+    <div class="references-header">
+      <div class="num-circle">R</div>
+      <h2>Referencias bibliográficas · Unidad 2</h2>
+    </div>
+    <ul class="ref-list">
+      <li class="ref-item">Shimada, M. A. (2007). <em>Nutrición animal</em>. México: Trillas.</li>
+      <li class="ref-item">INATEC. (2015). <em>Manual del protagonista: Nutrición animal</em>. Capítulo 2, Sistema digestivo de los animales. Instituto Nacional Tecnológico, Dirección General de Formación Profesional.</li>
+    </ul>
+  </div>
+
+  <!-- 4.12 Footer -->
+  <footer>
+    <div class="footer-logos">
+      <div class="logo-badge"><img src="logo-uat.png" alt="Universidad Autónoma de Tamaulipas"></div>
+      <div class="logo-badge"><img src="logo-fmvz-icono.png" alt="FMVZ"></div>
+    </div>
+    <div>
+      <div class="footer-name">Mosaico<span class="agro">Agro</span>Veterinario</div>
+      <div class="footer-meta">Facultad de Medicina Veterinaria y Zootecnia · Dr. Norberto Treviño Zapata</div>
+      <div class="footer-meta">Materia: Nutrición Animal · Grupo 3D · 2026-3</div>
+    </div>
+    <div class="footer-right">
+      <div>
+        <div class="uat">Universidad Autónoma de Tamaulipas</div>
+        <div class="footer-meta">Km. 5 Carretera Victoria a Mante S/N, Cd. Victoria</div>
+      </div>
+      <div class="art-circle">2</div>
+    </div>
+  </footer>
+
+</div>
+
+<div class="print-btn-wrap">
+  <button class="print-btn" onclick="window.print()">Imprimir / Guardar como PDF</button>
+  <div class="print-hint">Para conservar los colores de fondo, activa la opción "Gráficos de fondo" en el diálogo de impresión.</div>
+</div>
+
+</body>
+</html>
