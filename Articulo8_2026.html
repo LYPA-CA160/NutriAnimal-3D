@@ -3,23 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MosaicoAgroVeterinario · Grupo 3B · Artículo 8 · Vitaminas y minerales</title>
+<title>MosaicoAgroVeterinario · Grupo 3D · Artículo 8 · Vitaminas y minerales</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --azul: #B5502C;
-    --azul-oscuro: #3A2E22;
-    --cian: #5C7A52;
-    --azul-claro: #F1E7DA;
-    --dorado: #C99A3E;
-    --verde: #3F6B4C;
-    --verde-claro: #E3E9DD;
-    --rojo: #8C2F2F;
-    --naranja: #C87A3B;
-    --papel: #FBF7F0;
-    --tinta: #2B2620;
-    --muted: #6B6255;
+    --azul: #22D3EE;
+    --azul-oscuro: #0B1420;
+    --cian: #A3E635;
+    --azul-claro: #16283D;
+    --dorado: #FBBF24;
+    --verde: #34D399;
+    --verde-claro: #123024;
+    --rojo: #F87171;
+    --naranja: #FB923C;
+    --papel: #0B1420;
+    --tinta: #E7EEF5;
+    --muted: #8AA0B8;
+    --panel: #121D2E;
+    --linea: #223247;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html,body{-webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;}
@@ -27,518 +29,529 @@
   body{
     background:var(--papel);
     color:var(--tinta);
-    font-family:'Work Sans', sans-serif;
+    font-family:'IBM Plex Sans', sans-serif;
     line-height:1.65;
   }
-  .page{max-width:960px; margin:0 auto; background:var(--papel); border-left:1px solid #E4D9C8; border-right:1px solid #E4D9C8;}
 
-  /* Barra superior */
-  .cover-top-bar{
-    background:var(--azul-oscuro);
-    color:#fff;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:12px 40px;
-    font-size:10.5px;
-    text-transform:uppercase;
-    letter-spacing:2px;
+  /* Sidebar de navegación (dashboard) */
+  .sidebar{
+    position:fixed; top:0; left:0; width:260px; height:100vh; overflow-y:auto;
+    background:var(--panel); border-right:1px solid var(--linea);
+    padding:26px 20px; display:flex; flex-direction:column; gap:24px; z-index:10;
   }
-  .cover-top-bar span.gold{color:var(--dorado); font-weight:600;}
-  .top-bar-logos{display:flex; align-items:center; gap:10px;}
-  .logo-badge{
-    background:#fff; border-radius:3px;
-    padding:3px 8px; display:flex; align-items:center;
-    height:20px;
+  .sidebar-logos{display:flex; gap:8px;}
+  .sidebar-logos .logo-badge{background:#fff; border-radius:6px; padding:4px 8px; height:26px; display:flex; align-items:center;}
+  .sidebar-logos .logo-badge img{height:100%; width:auto; display:block;}
+  .sidebar-title{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:16px; color:#fff; margin-top:2px;}
+  .sidebar-title .agro{color:var(--dorado); font-style:normal;}
+  .sidebar-tag{font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:1.5px; color:var(--azul); text-transform:uppercase; margin-top:6px;}
+  .sidebar-nav{display:flex; flex-direction:column; gap:2px;}
+  .sidebar-nav a{
+    color:var(--muted); text-decoration:none; font-size:12.5px; padding:9px 10px; border-radius:6px;
+    border-left:2px solid transparent;
   }
-  .logo-badge img{height:100%; width:auto; display:block;}
-  .top-bar-text{font-size:10.5px; text-transform:uppercase; letter-spacing:1.8px; opacity:0.75; font-weight:300;}
+  .sidebar-nav a:hover{background:rgba(34,211,238,0.08); color:var(--tinta); border-left-color:var(--azul);}
+  .sidebar-nav a.back{color:var(--azul); font-weight:600; margin-bottom:10px; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.5px;}
+  .sidebar-footer{margin-top:auto; font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--muted); border-top:1px solid var(--linea); padding-top:14px;}
 
-  /* Masthead / hero minimalista (sin cartel ilustrado) */
+  .page{max-width:860px; margin:0 0 0 260px; background:var(--papel);}
+  .print-btn-wrap{margin-left:260px;}
+  .cover-top-bar{display:none;}
+
+  /* Hero: tarjeta de cabecera tipo dashboard */
   .cover-hero{
-    background:var(--papel);
-    padding:56px 40px 38px;
+    position:relative;
+    background:var(--panel);
+    background-image:none;
+    border:1px solid var(--linea);
+    border-radius:14px;
+    display:grid;
+    grid-template-columns:1fr;
+    margin:30px 32px 0;
+    padding:32px 34px 30px;
     color:var(--tinta);
-    border-bottom:1px solid #E4D9C8;
   }
   .hero-illustration{display:none;}
   .hero-text .revista-name{
-    font-family:'Lora', serif;
-    font-weight:600;
-    font-style:italic;
-    font-size:15px;
-    letter-spacing:0.3px;
-    color:var(--muted);
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:21px;
+    letter-spacing:0.2px;
   }
-  .hero-text .revista-name .agro{color:var(--azul); font-style:italic;}
+  .hero-text .revista-name .agro{color:var(--dorado); font-style:normal;}
   .hero-text .tagline{
-    font-size:11px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
     letter-spacing:2px;
     text-transform:uppercase;
     color:var(--muted);
-    margin-top:3px;
+    margin-top:6px;
   }
   .hero-divider{
-    width:34px; height:2px; background:var(--azul);
-    margin:22px 0 20px;
+    width:40px; height:3px; background:var(--azul);
+    margin:18px 0 14px;
+    border-radius:2px;
   }
   .hero-text .art-label{
-    display:block;
-    font-size:11px;
-    letter-spacing:2px;
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:1.5px;
     text-transform:uppercase;
+    background:rgba(34,211,238,0.08);
+    border:1px solid var(--azul);
     color:var(--azul);
-    font-weight:600;
-    margin-bottom:14px;
+    border-radius:5px;
+    padding:4px 12px;
+    margin-bottom:16px;
   }
   .hero-text h1{
-    font-family:'Lora', serif;
-    font-weight:600;
-    font-size:36px;
-    line-height:1.22;
-    max-width:640px;
-    color:var(--tinta);
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:28px;
+    line-height:1.28;
+    color:#fff;
   }
   .hero-text .subtitle{
-    margin-top:16px;
-    font-weight:400;
-    font-size:16.5px;
+    margin-top:14px;
+    font-weight:300;
+    font-size:15px;
     max-width:560px;
     color:var(--muted);
-    font-style:italic;
-    font-family:'Lora', serif;
   }
 
   /* Banda de autora */
   .author-band{
-    background:var(--azul-oscuro);
-    color:#fff;
+    background:transparent;
+    border-bottom:1px solid var(--linea);
+    color:var(--tinta);
     display:flex;
     align-items:center;
     gap:16px;
-    padding:16px 40px;
+    padding:18px 32px;
+    margin:0 32px;
     flex-wrap:wrap;
   }
   .avatar{
-    width:40px; height:40px; border-radius:50%;
-    background:transparent; border:1.5px solid var(--dorado);
+    width:38px; height:38px; border-radius:8px;
+    background:var(--azul-claro); border:1px solid var(--linea);
     display:flex; align-items:center; justify-content:center;
-    font-family:'Lora', serif; font-weight:600; font-size:14px;
-    color:var(--dorado); flex-shrink:0;
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:13px;
+    color:var(--azul); flex-shrink:0;
   }
-  .author-info .name{font-weight:600; font-size:14px;}
-  .author-info .affiliation{font-size:11.5px; opacity:0.7; font-weight:300;}
-  .chips{display:flex; gap:8px; margin-left:auto; flex-wrap:wrap;}
+  .author-info .name{font-weight:600; font-size:13.5px; color:var(--tinta);}
+  .author-info .affiliation{font-size:11px; color:var(--muted);}
+  .chips{display:flex; gap:6px; margin-left:auto; flex-wrap:wrap;}
   .chip{
-    border-radius:2px; padding:4px 11px; font-size:10.5px;
-    letter-spacing:0.5px;
-    border:1px solid rgba(255,255,255,0.25); background:transparent;
-    text-transform:uppercase;
+    border-radius:4px; padding:4px 10px; font-size:10px;
+    font-family:'IBM Plex Mono', monospace; text-transform:uppercase;
+    border:1px solid var(--linea); background:var(--panel); color:var(--muted);
   }
   .chip.gold{border-color:var(--dorado); color:var(--dorado); font-weight:600;}
 
   /* Lead */
   .lead{
-    background:transparent;
-    border-left:none;
-    border-top:1px solid #E4D9C8;
-    border-bottom:1px solid #E4D9C8;
-    margin:0;
-    padding:34px 40px;
-    border-radius:0;
+    background:var(--panel);
+    border:1px solid var(--linea);
+    border-left:3px solid var(--azul);
+    margin:26px 32px 0;
+    padding:28px 30px;
+    border-radius:10px;
   }
   .lead p{
-    font-weight:400; font-size:16.5px; color:var(--tinta);
-    font-family:'Lora', serif;
+    font-weight:300; font-size:15px; color:var(--tinta);
   }
   .lead .dropcap{
     float:left;
-    font-family:'Lora', serif;
-    font-size:60px;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:52px;
     line-height:0.8;
     font-weight:700;
     color:var(--azul);
     padding-right:10px;
-    margin-top:6px;
+    margin-top:4px;
   }
   .lead-stats{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:0;
-    margin-top:30px;
-    border-top:1px solid #E4D9C8;
-    padding-top:20px;
+    gap:14px;
+    margin-top:24px;
   }
   .stat-card{
-    background:transparent;
-    border-top:none;
-    border-left:1px solid #E4D9C8;
-    border-radius:0;
-    padding:0 16px;
-    text-align:left;
+    background:var(--azul-oscuro);
+    border:1px solid var(--linea);
+    border-top:2px solid var(--azul);
+    border-radius:8px;
+    padding:14px 14px;
+    text-align:center;
   }
-  .stat-card:first-child{border-left:none; padding-left:0;}
   .stat-card .num{
-    font-family:'Lora', serif;
-    font-size:28px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:25px;
     font-weight:600;
     color:var(--azul);
   }
   .stat-card.green .num{color:var(--verde);}
   .stat-card.red .num{color:var(--rojo);}
-  .stat-card .label{font-size:11.5px; color:var(--muted); margin-top:6px; line-height:1.4;}
+  .stat-card .label{font-size:11px; color:var(--muted); margin-top:6px;}
 
-  /* Alerta: cita editorial en vez de recuadro de aviso */
+  /* Alerta */
   .alert-box{
-    margin:0;
-    background:transparent;
-    border:none;
-    border-top:1px solid #E4D9C8;
-    border-bottom:1px solid #E4D9C8;
-    border-left:3px solid var(--rojo);
-    border-radius:0;
-    padding:26px 40px;
+    margin:22px 32px 0;
+    background:rgba(248,113,113,0.06);
+    border:1px solid var(--rojo);
+    border-radius:10px;
+    padding:18px 20px;
     display:flex;
-    gap:16px;
+    gap:14px;
     align-items:flex-start;
   }
   .alert-box .icon{
-    width:22px; height:22px; border-radius:50%;
-    background:transparent; color:var(--rojo); border:1.5px solid var(--rojo);
+    width:24px; height:24px; border-radius:6px;
+    background:var(--rojo); color:var(--azul-oscuro);
     display:flex; align-items:center; justify-content:center;
-    font-family:'Lora', serif; font-weight:700; font-size:13px;
+    font-weight:700; font-size:14px;
     flex-shrink:0;
   }
   .alert-box .alert-label{
     color:var(--rojo);
-    font-size:10.5px;
-    font-weight:600;
-    letter-spacing:1.5px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.2px;
     text-transform:uppercase;
-    margin-bottom:6px;
+    margin-bottom:5px;
   }
-  .alert-box p{font-size:14.5px; color:var(--tinta); font-family:'Lora', serif;}
+  .alert-box p{font-size:13.5px; color:var(--tinta);}
 
   /* Secciones numeradas */
   section.tema{
-    padding:40px 40px 8px;
+    padding:32px 32px 6px;
   }
   .tema-header{
     display:flex;
-    align-items:baseline;
-    gap:16px;
-    margin-bottom:18px;
+    align-items:center;
+    gap:12px;
+    margin-bottom:14px;
   }
   .num-circle{
-    width:auto; height:auto; border-radius:0;
-    background:transparent; color:var(--azul);
-    display:block;
-    font-family:'Lora', serif;
-    font-size:14px; font-weight:600; flex-shrink:0;
+    width:30px; height:30px; border-radius:8px;
+    background:var(--azul-claro); border:1px solid var(--azul); color:var(--azul);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px; font-weight:700; flex-shrink:0;
   }
-  .num-circle::before{content:"0"; }
   .tema-header h2{
-    font-family:'Lora', serif;
-    font-size:23px;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:19px;
     font-weight:600;
+    color:#fff;
     border-bottom:none;
     padding-bottom:0;
     display:inline-block;
   }
   .tema p{
-    font-size:15px;
-    color:var(--tinta);
-    margin-bottom:14px;
-    max-width:720px;
+    font-size:14px;
+    color:var(--muted);
+    margin-bottom:12px;
   }
-  .tema p strong{color:var(--azul);}
+  .tema p strong{color:var(--tinta);}
 
-  /* Tarjetas de mecanismos: minimalistas con borde superior */
+  /* Tarjetas de mecanismos */
   .cards-3col{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:0;
-    padding:14px 40px 38px;
-    border-top:1px solid #E4D9C8;
-    margin-top:10px;
+    gap:14px;
+    padding:8px 32px 32px;
   }
   .concept-card{
-    border-radius:0;
-    overflow:visible;
+    border-radius:10px;
+    overflow:hidden;
+    border:1px solid var(--linea);
+    background:var(--panel);
     box-shadow:none;
     display:flex;
     flex-direction:column;
-    border-left:1px solid #E4D9C8;
-    padding:0 20px;
   }
-  .concept-card:first-child{border-left:none; padding-left:0;}
   .concept-card .card-header{
-    padding:0 0 12px;
-    color:var(--tinta);
+    padding:14px;
+    color:#fff;
     display:flex;
     align-items:center;
     gap:8px;
-    border-bottom:2px solid transparent;
+    border-bottom:1px solid var(--linea);
   }
-  .concept-card.blue .card-header{border-bottom-color:var(--azul);}
-  .concept-card.orange .card-header{border-bottom-color:var(--naranja);}
-  .concept-card.green .card-header{border-bottom-color:var(--verde);}
   .concept-card .card-header .emoji{font-size:18px;}
   .concept-card .card-header h3{
-    font-family:'Lora', serif;
-    font-size:15.5px;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:14px;
     font-weight:600;
   }
+  .concept-card.blue .card-header{border-bottom:2px solid var(--azul);}
+  .concept-card.orange .card-header{border-bottom:2px solid var(--naranja);}
+  .concept-card.green .card-header{border-bottom:2px solid var(--verde);}
   .concept-card .card-body{
     background:transparent;
-    padding:14px 0;
-    font-size:13px;
+    padding:14px;
+    font-size:12.5px;
     color:var(--muted);
     flex:1;
   }
   .card-tag{
-    display:block;
-    margin:0 0 14px;
-    font-size:10px;
+    display:inline-block;
+    margin:0 14px 14px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:9.5px;
     text-transform:uppercase;
-    letter-spacing:1px;
+    letter-spacing:0.5px;
     font-weight:600;
-    padding:0;
-    border-radius:0;
-    background:none !important;
+    padding:3px 9px;
+    border-radius:10px;
   }
-  .concept-card.blue .card-tag{color:var(--azul);}
-  .concept-card.orange .card-tag{color:var(--naranja);}
-  .concept-card.green .card-tag{color:var(--verde);}
+  .concept-card.blue .card-tag{background:var(--azul-claro); color:var(--azul);}
+  .concept-card.orange .card-tag{background:rgba(251,146,60,0.12); color:var(--naranja);}
+  .concept-card.green .card-tag{background:var(--verde-claro); color:var(--verde);}
 
-  /* Analogía: cita editorial */
+  /* Analogía */
   .analogy-box{
-    margin:8px 40px 38px;
-    background:transparent;
-    border-radius:0;
-    border-left:3px solid var(--dorado);
-    padding:6px 0 6px 28px;
+    margin:6px 32px 32px;
+    background:linear-gradient(135deg, var(--panel), var(--azul-claro));
+    border:1px solid var(--linea);
+    border-radius:12px;
+    padding:26px 28px;
     color:var(--tinta);
   }
   .analogy-label{
     color:var(--dorado);
-    font-size:10.5px;
-    font-weight:600;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    font-weight:700;
     letter-spacing:1.5px;
     text-transform:uppercase;
-    margin-bottom:10px;
+    margin-bottom:9px;
   }
   .analogy-box h3{
-    font-family:'Lora', serif;
-    font-weight:600;
-    font-size:22px;
-    margin-bottom:12px;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:18px;
+    margin-bottom:10px;
+    color:#fff;
   }
   .analogy-box p{
     color:var(--muted);
-    font-size:16px;
-    font-weight:400;
-    font-family:'Lora', serif;
-    font-style:italic;
+    font-size:13.5px;
+    font-weight:300;
   }
-  .analogy-box p b{color:var(--azul); font-weight:700; font-style:normal;}
+  .analogy-box p b{color:var(--dorado); font-weight:700;}
 
   /* Balance */
   .balance-card{
-    margin:8px 40px 38px;
-    background:transparent;
-    border-radius:0;
-    box-shadow:none;
-    border-top:1px solid #E4D9C8;
-    border-bottom:1px solid #E4D9C8;
+    margin:6px 32px 32px;
+    background:var(--panel);
+    border:1px solid var(--linea);
+    border-radius:10px;
     overflow:hidden;
   }
   .balance-row{
     display:flex;
     align-items:center;
-    gap:16px;
-    padding:16px 4px;
-    border-left:3px solid transparent;
+    gap:14px;
+    padding:14px 18px;
+    border-left:4px solid transparent;
   }
-  .balance-row.bad{border-left-color:var(--rojo); background:transparent;}
-  .balance-row.good{border-left-color:var(--verde); background:transparent;}
-  .balance-row.warn{border-left-color:var(--naranja); background:transparent;}
-  .balance-row + .balance-row{border-top:1px solid #EDE4D6;}
-  .balance-row .b-icon{width:7px; height:7px; border-radius:50%; flex-shrink:0; margin-left:10px;}
+  .balance-row.bad{border-left-color:var(--rojo);}
+  .balance-row.good{border-left-color:var(--verde);}
+  .balance-row.warn{border-left-color:var(--naranja);}
+  .balance-row .b-icon{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
   .balance-row.bad .b-icon{background:var(--rojo);}
   .balance-row.good .b-icon{background:var(--verde);}
   .balance-row.warn .b-icon{background:var(--naranja);}
-  .balance-row .b-title{font-weight:600; font-size:14px; font-family:'Lora', serif;}
-  .balance-row .b-desc{font-size:12.5px; color:var(--muted); margin-top:2px;}
-  .balance-arrow{display:none;}
+  .balance-row .b-title{font-weight:600; font-size:13px; color:var(--tinta);}
+  .balance-row .b-desc{font-size:11.5px; color:var(--muted);}
+  .balance-arrow{
+    text-align:center;
+    color:var(--azul);
+    font-size:16px;
+    padding:1px 0;
+  }
 
   /* Glosario */
   .glossary{
-    padding:10px 40px 38px;
-    border-top:1px solid #E4D9C8;
+    padding:4px 32px 32px;
   }
   .glossary h2{
-    font-family:'Lora', serif;
-    font-size:20px;
-    font-weight:600;
-    margin:24px 0 18px;
-    color:var(--tinta);
+    font-family:'Space Grotesk', sans-serif;
+    font-size:18px;
+    margin-bottom:14px;
+    color:#fff;
   }
   .glossary-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:20px 32px;
+    gap:12px;
   }
   .gloss-item{
-    border-radius:0;
-    padding:0 0 0 14px;
-    background:transparent;
-    border-left:2px solid var(--azul);
+    border-radius:8px;
+    padding:12px 16px;
+    background:var(--panel);
+    border:1px solid var(--linea);
+    border-left:3px solid var(--azul);
   }
   .gloss-item:nth-child(even){border-left-color:var(--cian);}
   .gloss-item .term{
-    font-family:'Lora', serif;
+    font-family:'Space Grotesk', sans-serif;
     font-weight:600;
-    font-size:14.5px;
-    color:var(--tinta);
-    margin-bottom:4px;
+    font-size:13.5px;
+    color:#fff;
+    margin-bottom:3px;
   }
-  .gloss-item .def{font-size:12.5px; color:var(--muted);}
+  .gloss-item .def{font-size:11.5px; color:var(--muted);}
 
   /* Diagrama ciclo */
-  .cycle-section{padding:10px 40px 44px; border-top:1px solid #E4D9C8;}
+  .cycle-section{padding:4px 32px 36px;}
   .cycle-section h2{
-    font-family:'Lora', serif;
-    font-size:20px;
-    font-weight:600;
-    margin:24px 0 6px;
-    color:var(--tinta);
+    font-family:'Space Grotesk', sans-serif;
+    font-size:18px;
+    margin-bottom:4px;
+    color:#fff;
   }
-  .cycle-section .sub{font-size:13px; color:var(--muted); margin-bottom:20px; font-style:italic;}
+  .cycle-section .sub{font-size:12px; color:var(--muted); margin-bottom:16px;}
   .cycle-wrap{display:flex; justify-content:center;}
-  .cycle-wrap svg{filter:sepia(0.4) saturate(0.55) hue-rotate(-14deg) brightness(0.97);}
+  .cycle-wrap svg{filter:invert(0.93) hue-rotate(165deg) saturate(1.5) brightness(1.05);}
 
   /* Referencias bibliográficas */
-  .references{padding:10px 40px 44px; border-top:1px solid #E4D9C8;}
+  .references{padding:4px 32px 36px;}
   .references-header{
-    display:flex; align-items:baseline; gap:14px; margin:24px 0 18px;
+    display:flex; align-items:center; gap:12px; margin-bottom:14px;
   }
-  .references-header .num-circle::before{content:none;}
   .references-header h2{
-    font-family:'Lora', serif;
-    font-size:20px;
-    font-weight:600;
-    color:var(--tinta);
+    font-family:'Space Grotesk', sans-serif;
+    font-size:18px;
+    color:#fff;
   }
-  .ref-list{list-style:none; counter-reset:refs;}
+  .ref-list{list-style:none;}
   .ref-item{
-    background:transparent;
-    border-left:none;
-    border-top:1px solid #EDE4D6;
-    border-radius:0;
-    padding:14px 0 14px 26px;
-    margin-bottom:0;
-    font-size:13px;
+    background:var(--panel);
+    border:1px solid var(--linea);
+    border-left:3px solid var(--azul);
+    border-radius:8px;
+    padding:12px 16px;
+    margin-bottom:9px;
+    font-size:12.5px;
     color:var(--tinta);
-    position:relative;
-    counter-increment:refs;
-  }
-  .ref-item::before{
-    content:counter(refs);
-    position:absolute; left:0; top:14px;
-    font-family:'Lora', serif; font-weight:600; color:var(--azul); font-size:12px;
   }
   .ref-item a{color:var(--azul); word-break:break-all;}
 
   /* Footer */
   footer{
-    background:var(--azul-oscuro);
-    color:#fff;
+    background:var(--panel);
+    border-top:1px solid var(--linea);
+    color:var(--tinta);
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:30px 40px;
+    padding:26px 32px;
+    margin-left:0;
     flex-wrap:wrap;
     gap:16px;
   }
   footer .footer-name{
-    font-family:'Lora', serif;
-    font-weight:600;
-    font-style:italic;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
     font-size:15px;
+    color:#fff;
   }
-  footer .footer-name .agro{color:var(--dorado); font-style:italic;}
-  footer .footer-meta{font-size:11px; opacity:0.65; margin-top:5px; font-weight:300;}
+  footer .footer-name .agro{color:var(--dorado); font-style:normal;}
+  footer .footer-meta{font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--muted); margin-top:5px;}
   footer .footer-right{
-    display:flex; align-items:center; gap:14px; text-align:right;
+    display:flex; align-items:center; gap:12px; text-align:right;
   }
-  footer .footer-right .uat{font-size:11.5px; opacity:0.8;}
+  footer .footer-right .uat{font-size:11px; color:var(--muted);}
   .footer-logos{display:flex; gap:8px; align-items:center;}
-  .footer-logos .logo-badge{height:28px; padding:4px 9px;}
+  .footer-logos .logo-badge{background:#fff; border-radius:6px; height:26px; padding:4px 9px; display:flex; align-items:center;}
+  .footer-logos .logo-badge img{height:100%; width:auto; display:block;}
   .art-circle{
-    width:34px; height:34px; border-radius:50%;
-    background:transparent; color:var(--dorado); border:1.5px solid var(--dorado);
+    width:34px; height:34px; border-radius:8px;
+    background:var(--azul-claro); border:1px solid var(--azul); color:var(--azul);
     display:flex; align-items:center; justify-content:center;
-    font-weight:600; font-size:14px; font-family:'Lora', serif;
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:700; font-size:13px;
   }
 
   .print-btn-wrap{
     text-align:center;
-    padding:30px 20px 44px;
+    padding:26px 20px 40px;
     background:var(--papel);
   }
   .print-btn{
-    background:transparent;
-    color:var(--azul);
-    border:1.5px solid var(--azul);
+    background:var(--azul);
+    color:var(--azul-oscuro);
+    border:none;
     padding:11px 26px;
-    border-radius:2px;
+    border-radius:8px;
     font-size:13px;
-    font-weight:600;
-    letter-spacing:0.5px;
-    text-transform:uppercase;
+    font-weight:700;
     cursor:pointer;
-    font-family:'Work Sans', sans-serif;
+    font-family:'IBM Plex Sans', sans-serif;
   }
-  .print-btn:hover{background:var(--azul); color:#fff;}
-  .print-hint{font-size:11px; color:var(--muted); margin-top:12px;}
+  .print-btn:hover{background:var(--cian);}
+  .print-hint{font-size:11px; color:var(--muted); margin-top:10px;}
 
   @media print{
     .print-btn-wrap{display:none;}
+    .sidebar{display:none;}
+    .page{margin-left:0;}
     body{background:#fff;}
-    .page{box-shadow:none;}
   }
 
+  @media (max-width:900px){
+    .sidebar{
+      position:static; width:100%; height:auto;
+      flex-direction:row; flex-wrap:wrap; align-items:center;
+      padding:14px 18px; gap:14px;
+    }
+    .sidebar-nav, .sidebar-footer{display:none;}
+    .page{margin-left:0; max-width:100%;}
+    .print-btn-wrap{margin-left:0;}
+    .cover-hero, .author-band, .lead, .alert-box, section.tema, .cards-3col, .analogy-box, .balance-card, .glossary, .cycle-section, .references{margin-left:16px; margin-right:16px;}
+  }
   @media (max-width:720px){
     .lead-stats, .cards-3col, .glossary-grid{grid-template-columns:1fr;}
-    .lead-stats .stat-card, .cards-3col .concept-card{border-left:none; border-top:1px solid #E4D9C8; padding:16px 0 0; margin-top:16px;}
-    .lead-stats .stat-card:first-child, .cards-3col .concept-card:first-child{border-top:none; margin-top:0; padding-top:0;}
-    .lead, .alert-box, .tema, .cards-3col, .analogy-box, .balance-card, .glossary, .cycle-section, .references{margin-left:0; margin-right:0; padding-left:20px; padding-right:20px;}
-    .cover-hero{padding:34px 20px 26px;}
-    .hero-text h1{font-size:26px;}
     footer{flex-direction:column; text-align:center;}
     footer .footer-right{flex-direction:column; text-align:center;}
     .footer-logos{justify-content:center;}
-    .cover-top-bar{flex-direction:column; gap:8px; padding:10px 16px;}
-    .top-bar-logos{flex-wrap:wrap; justify-content:center;}
-    .top-bar-text{display:none;}
-    .author-band{padding:14px 20px;}
     .chips{margin-left:0; width:100%; justify-content:center;}
   }
 
 </style>
 </head>
 <body>
-<div class="page">
+<aside class="sidebar">
+  <div>
+    <div class="sidebar-logos">
+      <div class="logo-badge"><img src="logo-uat.png" alt="Universidad Autónoma de Tamaulipas"></div>
+      <div class="logo-badge"><img src="logo-fmvz-icono.png" alt="FMVZ"></div>
+    </div>
+    <div class="sidebar-title">Mosaico<span class="agro">Agro</span>Veterinario</div>
+    <div class="sidebar-tag">Grupo 3D · 2026-3</div>
+  </div>
+  <nav class="sidebar-nav">
+    <a class="back" href="index.html">&larr; ÍNDICE</a>
+    <a href="#inicio">Inicio</a>
+    <a href="#tema-1">Tema 01</a>
+    <a href="#tema-2">Tema 02</a>
+    <a href="#tema-3">Tema 03</a>
+    <a href="#glosario">Glosario</a>
+    <a href="#linea-tiempo">Línea evolutiva</a>
+    <a href="#referencias">Referencias</a>
+  </nav>
+  <div class="sidebar-footer">ART. 8 · UNIDAD 8</div>
+</aside>
+<div class="page" id="inicio">
 
   <!-- 4.1 Barra superior -->
   <div class="cover-top-bar">
-    <div class="top-bar-logos">
-      <div class="logo-badge"><img src="logo-uat.png" alt="Universidad Autónoma de Tamaulipas"></div>
-      <div class="logo-badge"><img src="logo-fmvz-icono.png" alt="FMVZ"></div>
-      <span class="top-bar-text">FMVZ · Universidad Autónoma de Tamaulipas</span>
-    </div>
-    <span><span class="gold">Grupo 3B</span> · Art. 8 · 2026-3</span>
+    <span>FMVZ · Universidad Autónoma de Tamaulipas</span>
+    <span><span class="gold">Grupo 3D</span> · Art. 8 · 2026-3</span>
   </div>
 
   <!-- 4.2 Hero -->
@@ -587,7 +600,7 @@
       <div class="affiliation">FMVZ · Universidad Autónoma de Tamaulipas</div>
     </div>
     <div class="chips">
-      <span class="chip gold">Grupo 3B</span>
+      <span class="chip gold">Grupo 3D</span>
       <span class="chip">Nutrición Animal</span>
       <span class="chip">2026-3</span>
     </div>
@@ -622,7 +635,7 @@
   </div>
 
   <!-- 4.6 Sección 1 -->
-  <section class="tema">
+  <section class="tema" id="tema-1">
     <div class="tema-header">
       <div class="num-circle">1</div>
       <h2>Vitaminas: liposolubles frente a hidrosolubles</h2>
@@ -651,7 +664,7 @@
   </div>
 
   <!-- 4.6 Sección 2 -->
-  <section class="tema">
+  <section class="tema" id="tema-2">
     <div class="tema-header">
       <div class="num-circle">2</div>
       <h2>Minerales: entre el antagonismo y el sinergismo</h2>
@@ -695,7 +708,7 @@
   </div>
 
   <!-- 4.6 Sección 3 -->
-  <section class="tema">
+  <section class="tema" id="tema-3">
     <div class="tema-header">
       <div class="num-circle">3</div>
       <h2>Signos clínicos de deficiencia y exceso</h2>
@@ -705,7 +718,7 @@
   </section>
 
   <!-- 4.10 Glosario -->
-  <div class="glossary">
+  <div class="glossary" id="glosario">
     <h2>Glosario esencial</h2>
     <div class="glossary-grid">
       <div class="gloss-item">
@@ -728,7 +741,7 @@
   </div>
 
   <!-- 4.11 Diagrama -->
-  <div class="cycle-section">
+  <div class="cycle-section" id="linea-tiempo">
     <h2>Micronutrientes y sus funciones principales</h2>
     <p class="sub">Del hueso a la reproducción: cuatro roles clave</p>
     <div class="cycle-wrap">
@@ -770,7 +783,7 @@
   </div>
 
   <!-- Referencias bibliográficas -->
-  <div class="references">
+  <div class="references" id="referencias">
     <div class="references-header">
       <div class="num-circle">R</div>
       <h2>Referencias bibliográficas · Unidad 8</h2>
@@ -794,7 +807,7 @@
     <div>
       <div class="footer-name">Mosaico<span class="agro">Agro</span>Veterinario</div>
       <div class="footer-meta">Facultad de Medicina Veterinaria y Zootecnia · Dr. Norberto Treviño Zapata</div>
-      <div class="footer-meta">Materia: Nutrición Animal · Grupo 3B · 2026-3</div>
+      <div class="footer-meta">Materia: Nutrición Animal · Grupo 3D · 2026-3</div>
     </div>
     <div class="footer-right">
       <div>

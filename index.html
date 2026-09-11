@@ -3,80 +3,79 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MosaicoAgroVeterinario · Grupo 3B · Índice de artículos</title>
+<title>MosaicoAgroVeterinario · Grupo 3D · Índice de artículos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --azul: #B5502C; --azul-oscuro: #3A2E22; --cian: #5C7A52; --azul-claro: #F1E7DA;
-    --dorado: #C99A3E; --papel: #FBF7F0; --tinta: #2B2620; --muted: #6B6255;
+    --azul: #22D3EE; --azul-oscuro: #0B1420; --cian: #A3E635; --azul-claro: #16283D;
+    --dorado: #FBBF24; --papel: #0B1420; --tinta: #E7EEF5; --muted: #8AA0B8; --panel: #121D2E; --linea: #223247;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html,body{-webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;}
   img{-webkit-user-drag:none; pointer-events:none;}
-  body { font-family: 'Work Sans', sans-serif; background: var(--papel); color: var(--tinta); }
+  body { font-family: 'IBM Plex Sans', sans-serif; background: var(--papel); color: var(--tinta); }
   .top-bar {
-    background: var(--azul-oscuro); color: #fff; display: flex; justify-content: space-between;
-    align-items: center; padding: 12px 40px; font-size: 10.5px; text-transform: uppercase;
-    letter-spacing: 2px; flex-wrap: wrap; gap: 10px;
+    background: var(--panel); color: #fff; display: flex; justify-content: space-between; border-bottom:1px solid var(--linea);
+    align-items: center; padding: 12px 32px; font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 1.5px; flex-wrap: wrap; gap: 10px;
   }
-  .top-bar-left { display: flex; align-items: center; gap: 12px; font-weight:300; }
+  .top-bar-left { display: flex; align-items: center; gap: 12px; font-family:'IBM Plex Mono', monospace; font-weight:500; }
   .top-bar .gold { color: var(--dorado); font-weight: 600; }
-  .logo-badge{ background:#fff; border-radius:3px; padding:3px 8px; display:flex; align-items:center; height:20px; }
+  .logo-badge{ background:#fff; border-radius:6px; padding:3px 8px; display:flex; align-items:center; height:22px; }
   .logo-badge img{ height:100%; width:auto; display:block; }
   .footer-logos{ display:flex; gap:8px; align-items:center; }
-  .footer-logos .logo-badge{ height:32px; padding:5px 10px; }
+  .footer-logos .logo-badge{ height:30px; padding:5px 10px; }
 
   .hero {
-    background: var(--papel);
-    color: var(--tinta); text-align: center; padding: 64px 24px 54px;
-    border-bottom: 1px solid #E4D9C8;
+    background: var(--panel);
+    color: #fff; text-align: center; padding: 60px 24px 54px;
+    border-bottom: 1px solid var(--linea);
   }
   .hero .icono-revista {
-    width: 68px; height: 68px; border-radius: 50%; background: transparent; border: 1.5px solid var(--dorado);
+    width: 72px; height: 72px; border-radius: 14px; background: var(--azul-claro); border:1px solid var(--azul);
     display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
-    font-family: 'Lora', serif; font-weight: 600; font-size: 18px; color: var(--dorado);
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; color: var(--azul);
   }
-  .hero .nombre-revista { font-family: 'Lora', serif; font-weight: 600; font-size: 36px; }
-  .hero .nombre-revista .agro { color: var(--azul); font-style: italic; }
-  .hero .tagline { font-size: 14px; color: var(--muted); margin-top: 12px; max-width: 560px; margin-left: auto; margin-right: auto; font-style:italic; font-family:'Lora', serif; }
-  .hero .divider { width: 34px; height: 2px; background: var(--azul); margin: 24px auto; }
-  .hero .vol { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .hero .nombre-revista { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; }
+  .hero .nombre-revista .agro { color: var(--dorado); font-style: normal; }
+  .hero .tagline { font-family:'IBM Plex Mono', monospace; font-size: 11px; letter-spacing:1px; opacity: 0.75; margin-top: 12px; max-width: 560px; margin-left: auto; margin-right: auto; color:var(--muted); }
+  .hero .divider { width: 40px; height: 3px; background: var(--azul); margin: 22px auto; border-radius:2px; }
+  .hero .vol { font-family:'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color:var(--muted); }
 
-  .grid-wrap { max-width: 1100px; margin: 48px auto 60px; padding: 0 24px; }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top:1px solid #E4D9C8; border-left:1px solid #E4D9C8; }
+  .grid-wrap { max-width: 1100px; margin: -32px auto 60px; padding: 0 24px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .card {
-    background: transparent; border-radius: 0; padding: 30px 28px; text-decoration: none; color: var(--tinta);
+    background: var(--panel); border-radius: 12px; padding: 24px 22px; text-decoration: none; color: var(--tinta);
     box-shadow: none; display: flex; flex-direction: column; gap: 10px;
-    border-right:1px solid #E4D9C8; border-bottom:1px solid #E4D9C8;
-    transition: background 0.15s ease;
+    border: 1px solid var(--linea); border-top: 2px solid var(--azul); transition: transform 0.15s ease, border-color 0.15s ease;
   }
-  .card:hover { background: rgba(181,80,44,0.05); }
-  .card-num { display: flex; align-items: center; gap: 8px; font-size: 22px; }
-  .card-num span { font-family: 'Lora', serif; font-size: 11px; font-weight: 600; color: var(--azul);
-    text-transform: uppercase; letter-spacing: 1px; }
-  .card h2 { font-family: 'Lora', serif; font-weight:600; font-size: 18px; line-height: 1.3; }
-  .card p { font-size: 13px; color: var(--muted); flex: 1; }
-  .card-link { font-size: 12px; font-weight: 600; color: var(--azul); text-transform:uppercase; letter-spacing:0.5px; }
+  .card:hover { transform: translateY(-3px); border-color: var(--azul); }
+  .card-num { display: flex; align-items: center; gap: 8px; font-size: 24px; }
+  .card-num span { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; color: var(--azul);
+    text-transform: uppercase; letter-spacing: 1px; background: var(--azul-claro); padding: 3px 9px; border-radius: 5px; }
+  .card h2 { font-family: 'Space Grotesk', sans-serif; font-weight:600; font-size: 16.5px; line-height: 1.3; color:#fff; }
+  .card p { font-size: 12.5px; color: var(--muted); flex: 1; }
+  .card-link { font-family:'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; color: var(--azul); }
 
-  footer { background: var(--azul-oscuro); color: #fff; }
-  .footer-top { display: flex; justify-content: space-between; align-items: center; padding: 26px 40px; flex-wrap: wrap; gap: 14px; max-width: 1100px; margin: 0 auto; }
-  .footer-brand .nombre { font-family: 'Lora', serif; font-weight: 600; font-style:italic; font-size: 17px; }
-  .footer-brand .nombre .agro { color: var(--dorado); font-style: italic; }
-  .footer-brand .meta { font-size: 11px; opacity: 0.65; margin-top: 5px; font-weight:300; }
-  .footer-credit { border-top: 1px solid rgba(255,255,255,0.12); padding: 18px 40px; display: flex;
+  footer { background: var(--panel); color: #fff; border-top:1px solid var(--linea); }
+  .footer-top { display: flex; justify-content: space-between; align-items: center; padding: 24px 40px; flex-wrap: wrap; gap: 14px; max-width: 1100px; margin: 0 auto; }
+  .footer-brand .nombre { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; }
+  .footer-brand .nombre .agro { color: var(--dorado); }
+  .footer-brand .meta { font-family:'IBM Plex Mono', monospace; font-size: 10px; color:var(--muted); margin-top: 5px; }
+  .footer-credit { border-top: 1px solid var(--linea); padding: 18px 40px; display: flex;
     justify-content: center; gap: 40px; flex-wrap: wrap; }
   .credit-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-  .credit-item .rol { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.65; text-align: center; }
+  .credit-item .rol { font-family:'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color:var(--muted); text-align: center; }
 
   @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 600px) {
-    .top-bar{padding:10px 16px; font-size:9.5px; flex-direction:column;}
-    .hero { padding: 40px 20px 34px; }
-    .hero .icono-revista{width:54px; height:54px; font-size:15px; margin-bottom:14px;}
-    .hero .nombre-revista { font-size: 26px; }
-    .hero .tagline{font-size:12.5px;}
-    .grid-wrap{margin-top:32px;}
+    .top-bar{padding:8px 16px; font-size:9.5px; flex-direction:column;}
+    .hero { padding: 34px 20px 46px; }
+    .hero .icono-revista{width:56px; height:56px; font-size:15px; margin-bottom:12px;}
+    .hero .nombre-revista { font-size: 24px; }
+    .hero .tagline{font-size:10.5px;}
+    .grid-wrap{margin-top:-20px;}
     .grid { grid-template-columns: 1fr; }
     .footer-top{flex-direction:column; text-align:center;}
     .footer-logos{justify-content:center;}
@@ -89,17 +88,17 @@
     <div class="top-bar-left">
       <div class="logo-badge"><img src="logo-uat.png" alt="Universidad Autónoma de Tamaulipas"></div>
       <div class="logo-badge"><img src="logo-fmvz-icono.png" alt="FMVZ"></div>
-      FMVZ · Universidad Autónoma de Tamaulipas
+      FMVZ · UNIVERSIDAD AUTÓNOMA DE TAMAULIPAS
     </div>
-    <div><span class="gold">Grupo 3B</span> · Nutrición Animal · 2026-3</div>
+    <div><span class="gold">GRUPO 3D</span> · NUTRICIÓN ANIMAL · 2026-3</div>
   </div>
 
   <div class="hero">
     <div class="icono-revista">MAV</div>
     <div class="nombre-revista">Mosaico<span class="agro">Agro</span>Veterinario</div>
-    <p class="tagline">Divulgación científica en Nutrición Animal · Dra. Luz Yosahandy Peña Avelino · FMVZ-UAT</p>
+    <p class="tagline">DIVULGACIÓN CIENTÍFICA · NUTRICIÓN ANIMAL · DRA. LUZ YOSAHANDY PEÑA AVELINO · FMVZ-UAT</p>
     <div class="divider"></div>
-    <div class="vol">Grupo 3B · 2026-3 · 9 artículos, uno por cada Unidad temática</div>
+    <div class="vol">Grupo 3D · 2026-3 · 9 artículos, uno por cada Unidad temática</div>
   </div>
 
   <div class="grid-wrap">
@@ -179,7 +178,7 @@
       </div>
       <div class="footer-brand">
         <div class="nombre">Mosaico<span class="agro">Agro</span>Veterinario</div>
-        <div class="meta">Grupo 3B · 2026-3 · FMVZ-UAT</div>
+        <div class="meta">GRUPO 3D · 2026-3 · FMVZ-UAT</div>
       </div>
       <div>Universidad Autónoma de Tamaulipas</div>
     </div>
@@ -188,7 +187,7 @@
         <div class="rol">Facultad de Medicina Veterinaria y Zootecnia<br>Dr. Norberto Treviño Zapata</div>
       </div>
       <div class="credit-item">
-        <div class="rol">Materia: Nutrición Animal<br>Grupo 3B · 2026-3</div>
+        <div class="rol">Materia: Nutrición Animal<br>Grupo 3D · 2026-3</div>
       </div>
     </div>
   </footer>
